@@ -1,0 +1,323 @@
+<html>
+<head>
+<title>Genshin Roulette</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+var Character = function(name, rarity, element, height, sex, weapon, region) {
+	this.name = name.replace(/\|.*/, "");
+	this.displayname = name.replace(/.*\|/, "").replace("_", " ");
+	this.rarity = rarity;
+	this.element = element;
+	this.height = height;
+	this.sex = sex;
+	this.weapon = weapon;
+	this.region = region;
+}
+
+var qualities = [
+	["name", []],
+	["height", ["Short", "Medium", "Tall"]],
+	["element", ["Geo", "Anemo", "Cryo", "Electro", "Pyro", "Hydro", "Dendro"]],
+	["sex", ["Male", "Female"]],
+	["rarity", ["4", "5"]],
+	["height", ["Short", "Medium", "Tall"]],
+	["weapon", ["Sword", "Claymore", "Bow", "Catalyst", "Polearm"]],
+	["region", ["Liyue", "Mondstadt", "Inazuma", "Outlander"]],
+
+];
+
+var characters = [
+	 new Character("Aether", "5", "Geo", "Medium", "Male", "Sword", "Outlander"), 
+	 new Character("Albedo", "5", "Geo", "Medium", "Male", "Sword", "Mondstadt"), 
+	 new Character("Aloy", "5a", "Cryo", "Medium", "Female", "Bow", "Outlander"), 
+	 new Character("Amber", "4", "Pyro", "Medium", "Female", "Bow", "Mondstadt"), 
+	 new Character("Ayaka", "5", "Cryo", "Medium", "Female", "Sword", "Inazuma"), 
+	 new Character("Barbara", "4", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt"), 
+	 new Character("Beidou", "4", "Electro", "Tall", "Female", "Claymore", "Liyue"), 
+	 new Character("Bennett", "4", "Pyro", "Medium", "Male", "Sword", "Mondstadt"), 
+	 new Character("Chongyun", "4", "Cryo", "Medium", "Male", "Claymore", "Liyue"), 
+	 new Character("Diluc", "5", "Pyro", "Tall", "Male", "Claymore", "Mondstadt"), 
+	 new Character("Diona", "4", "Cryo", "Chibi", "Female", "Bow", "Mondstadt"), 
+	 new Character("Eula", "5", "Cryo", "Tall", "Female", "Claymore", "Mondstadt"), 
+	 new Character("Fischl", "4", "Electro", "Medium", "Female", "Bow", "Mondstadt"), 
+	 new Character("Ganyu", "5", "Cryo", "Medium", "Female", "Bow", "Liyue"), 
+	 new Character("Hu_Tao", "5", "Pyro", "Medium", "Female", "Polearm", "Liyue"), 
+	 new Character("Jean", "5", "Anemo", "Tall", "Female", "Sword", "Mondstadt"), 
+	 new Character("Kaeya", "4", "Cryo", "Tall", "Male", "Sword", "Mondstadt"), 
+	 new Character("Kazuha", "5", "Anemo", "Medium", "Male", "Sword", "Inazuma"), 
+	 new Character("Keqing", "5", "Electro", "Medium", "Female", "Sword", "Liyue"), 
+	 new Character("Klee", "5", "Pyro", "Chibi", "Female", "Catalyst", "Mondstadt"), 
+	 new Character("Kokomi", "5", "Hydro", "Medium", "Female", "Catalyst", "Inazuma"), 
+	 new Character("Kujou_Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma"), 
+	 new Character("Lisa", "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt"), 
+	 new Character("Lumine", "5", "Anemo", "Medium", "Female", "Sword", "Outlander"), 
+	 new Character("Mona", "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt"), 
+	 new Character("Ningguang", "4", "Geo", "Tall", "Female", "Catalyst", "Liyue"), 
+	 new Character("Noelle", "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt"), 
+	 new Character("Qiqi", "5", "Cryo", "Chibi", "Female", "Sword", "Liyue"), 
+	 new Character("Raiden_Shogun|Raiden", "5", "Electro", "Tall", "Female", "Polearm", "Inazuma"), 
+	 new Character("Razor", "4", "Electro", "Medium", "Male", "Claymore", "Mondstadt"), 
+	 new Character("Rosaria", "4", "Cryo", "Tall", "Female", "Polearm", "Mondstadt"), 
+	 new Character("Sayu", "4", "Anemo", "Chibi", "Female", "Claymore", "Inazuma"), 
+	 new Character("Sucrose", "4", "Anemo", "Medium", "Female", "Catalyst", "Mondstadt"), 
+	 new Character("Tartaglia", "5", "Hydro", "Tall", "Male", "Bow", "Snezhnaya"), 
+	 new Character("Thoma", "4", "Pyro", "Tall", "Male", "Polearm", "Inazuma"), 
+	 new Character("Venti", "5", "Anemo", "Medium", "Male", "Bow", "Mondstadt"), 
+	 new Character("Xiangling", "4", "Pyro", "Medium", "Female", "Polearm", "Liyue"), 
+	 new Character("Xiao", "5", "Anemo", "Medium", "Male", "Polearm", "Liyue"), 
+	 new Character("Xingqiu", "4", "Hydro", "Medium", "Male", "Sword", "Liyue"), 
+	 new Character("Xinyan", "4", "Pyro", "Medium", "Female", "Claymore", "Liyue"), 
+	 new Character("Yanfei", "4", "Pyro", "Medium", "Female", "Catalyst", "Liyue"), 
+	 new Character("Yoimiya", "5", "Pyro", "Medium", "Female", "Bow", "Inazuma"), 
+	 new Character("Zhongli", "5", "Geo", "Tall", "Male", "Polearm", "Liyue")
+
+];
+
+
+
+Character.prototype.render = function() {
+	var card = $('<div class="card"></div>');
+	card.addClass("rarity-" + this.rarity);
+	var face = $('<div class="face"></div>');
+	face.css('background-image', "url('images/thumbs/Character_"+this.name+"_Thumb.png')");
+	var element = $('<div class="element"></div>').addClass(this.element);
+	var weapon = $('<div class="weapon"></div>').addClass(this.weapon);
+	var region = $('<div class="region"></div>').addClass(this.region);
+	card.append(face).append(element);//.append(region);
+	card.append($('<div class="name"><div>'+this.displayname+'</div></div>'));
+	return card;
+
+};
+
+
+var sortCards = function(comparator) {
+var cards = $(".card.invisible");
+	cards.detach();
+    cards.sort(comparator);  
+	$("#content").append(cards);
+	Reposition();
+};
+
+var Randomize = function() {
+	sortCards(function() { return (Math.round(Math.random())-0.5); });
+}
+
+var Reposition = function() {
+	$(".card.real").each(function(){
+		$(this).css("left", $(this).data("copy")[0].getBoundingClientRect().left);
+		$(this).css("top", $(this).data("copy")[0].getBoundingClientRect().top);
+	});
+	
+};
+
+var currentSort = "";
+
+var Init = function() {
+	for (var quality in qualities) {
+		var sorter = $("<div>"+qualities[quality][0]+"</div>").addClass("sorter");
+		sorter.data("sort", qualities[quality][0]);
+		sorter.click(function(){		
+			var prop = $(this).data("sort");
+			var polarity = 1;
+			if (prop == currentSort) {
+				polarity = -1;
+				currentSort = '';
+			} else {
+				currentSort = prop;
+			}
+			sortCards(function(a, b) {
+//			console.log($(a).data("character")[prop]);
+			return polarity * $(a).data("character")[prop].localeCompare($(b).data("character")[prop]); });
+		});
+		$("#sorts").append(sorter);
+	}
+	var random = $("<div>random</div>").addClass("sorter");
+	random.click(Randomize);
+	$("#sorts").append(random);
+
+	for (var i in characters) {
+		var card = characters[i].render();
+		var cardCopy = card.clone().addClass("invisible");
+		cardCopy.data("character", characters[i]);
+		card.addClass("real");
+		card.data("copy", cardCopy)
+		$("#content").append(cardCopy);
+		$("#content").append(card);
+		
+	}
+};
+
+$(document).ready(function(){
+	Init();
+	Reposition();
+	$(window).on('resize', Reposition);
+});
+
+
+
+
+
+</script>
+<style>
+@font-face {
+	font-family:"Genshin";
+	font-style:normal;
+	font-weight:normal;
+	src:url('font/Genshin_Impact_Font.ttf') format("truetype");
+}
+
+.face {
+	width: 100%;
+	height: 80%;
+	background-size: 100%;
+	background-repeat: none;
+	
+}
+
+.card .element {
+	position: absolute;
+	top: 2%;
+	left: 2%;
+    height: 100%;
+    width: 27%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.card .weapon {
+	position: absolute;
+	top: 2%;
+	left: 52%;
+    height: 100%;
+    width: 40%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.card .region {
+	position: absolute;
+	top: 2%;
+	left: 52%;
+    height: 100%;
+    width: 40%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+
+.card {
+	width: 100px;
+	height: 125px;
+
+	margin: 10px;
+	position: absolute;
+	display: inline-block;
+	border-radius: 10px;
+	overflow: hidden;
+	transition: transform 0.1s, top 0.3s, left 0.3s;
+}
+
+.card.invisible {
+	position: relative;
+	opacity: 0;
+}
+
+.card.real { 
+	margin: 0;
+	z-index: 1;
+}
+
+.card:hover {
+	transform: scale(1.07);
+	box-shadow: 0 0 0px 3px white;
+	z-index: 9999;
+}
+
+.card.rarity-4  {	background: linear-gradient(0deg,#917ab1 0%,#6c6192 100%);}
+.card.rarity-5  {	background: linear-gradient(0deg,#de9552 0%,#9a6d43 100%);}
+.card.rarity-5a {	background: linear-gradient(0deg,#b8454a 0%,#a3464a 100%);}
+
+
+
+
+.weapon.Bow         {background-image: url('images/Weapon_Bow.png')}
+.weapon.Sword       {background-image: url('images/Weapon_Sword.png')}
+.weapon.Claymore    {background-image: url('images/Weapon_Claymore.png')}
+.weapon.Catalyst    {background-image: url('images/Weapon_Catalyst.png')}
+.weapon.Polearm     {background-image: url('images/Weapon_Polearm.png')}
+
+.region.Liyue         {background-image: url('images/Region_Liyue.png')}
+.region.Inazuma       {background-image: url('images/Region_Inazuma.png')}
+.region.Mondstadt     {background-image: url('images/Region_Mondstadt.png')}
+.region.Outlander     {background-image: url('images/Region_Outlander.png')}
+.region.Snezhnaya     {background-image: url('images/Region_Outlander.png')}
+
+
+.element.Geo     {background-image: url('images/Element_Geo.png')}
+.element.Anemo   {background-image: url('images/Element_Anemo.png')}
+.element.Pyro    {background-image: url('images/Element_Pyro.png')}
+.element.Cryo    {background-image: url('images/Element_Cryo.png')}
+.element.Hydro   {background-image: url('images/Element_Hydro.png')}
+.element.Electro {background-image: url('images/Element_Electro.png')}
+.element.Dendro  {background-image: url('images/Element_Dendro.png')}
+
+.name {
+	height: 20%;
+	text-align: center;
+	background-color: #E9E5DC;
+	font-size: 12pt;
+	color: #633;
+	
+	font-family: "Genshin","Helvetica Neue",Helvetica,Arial,sans-serif;
+	vertical-align: middle;
+	position: relative;
+}
+
+.name:before {
+	content: "";
+	position:absolute;
+	height: 100%;
+	width: 100%;
+	top: -100%;
+	left: 0%;
+    border-radius: 0 0 20px 0;
+    box-shadow: 20px 1px 0 0 #E9E5DC;
+	
+}
+
+.name div {
+	position: absolute;
+	top: 50%; left: 50%;
+	width: 100%;
+	transform: translate(-50%,-50%);
+	display: inline-block; 
+}
+
+.sorter {
+	position: relative;
+	background-color: #de5295;
+	border-radius: 5px;
+	margin: 5px;
+	display: inline-block;
+	padding: 5px;
+	cursor: pointer;
+}
+
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: Tahoma;
+	user-select: none;
+}
+
+
+</style>
+</head>
+<body>
+<div id="content">
+<div id="sorts"></div>
+</div>
+</body>
+</html>
