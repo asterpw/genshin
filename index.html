@@ -5,7 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-var Character = function(name, rarity, element, height, sex, weapon, region) {
+var Character = function(name, rarity, element, height, sex, weapon, region, release) {
 	this.name = name.replace(/\|.*/, "");
 	this.displayname = name.replace(/.*\|/, "").replace("_", " ");
 	this.rarity = rarity;
@@ -14,6 +14,7 @@ var Character = function(name, rarity, element, height, sex, weapon, region) {
 	this.sex = sex;
 	this.weapon = weapon;
 	this.region = region;
+	this.release = release
 }
 
 var qualities = [
@@ -25,53 +26,54 @@ var qualities = [
 	["height", ["Short", "Medium", "Tall"]],
 	["weapon", ["Sword", "Claymore", "Bow", "Catalyst", "Polearm"]],
 	["region", ["Liyue", "Mondstadt", "Inazuma", "Outlander"]],
+	["release", []]
 
 ];
 
 var characters = [
-	 new Character("Aether", "5", "Geo", "Medium", "Male", "Sword", "Outlander"), 
-	 new Character("Albedo", "5", "Geo", "Medium", "Male", "Sword", "Mondstadt"), 
-	 new Character("Aloy", "5a", "Cryo", "Medium", "Female", "Bow", "Outlander"), 
-	 new Character("Amber", "4", "Pyro", "Medium", "Female", "Bow", "Mondstadt"), 
-	 new Character("Ayaka", "5", "Cryo", "Medium", "Female", "Sword", "Inazuma"), 
-	 new Character("Barbara", "4", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt"), 
-	 new Character("Beidou", "4", "Electro", "Tall", "Female", "Claymore", "Liyue"), 
-	 new Character("Bennett", "4", "Pyro", "Medium", "Male", "Sword", "Mondstadt"), 
-	 new Character("Chongyun", "4", "Cryo", "Medium", "Male", "Claymore", "Liyue"), 
-	 new Character("Diluc", "5", "Pyro", "Tall", "Male", "Claymore", "Mondstadt"), 
-	 new Character("Diona", "4", "Cryo", "Chibi", "Female", "Bow", "Mondstadt"), 
-	 new Character("Eula", "5", "Cryo", "Tall", "Female", "Claymore", "Mondstadt"), 
-	 new Character("Fischl", "4", "Electro", "Medium", "Female", "Bow", "Mondstadt"), 
-	 new Character("Ganyu", "5", "Cryo", "Medium", "Female", "Bow", "Liyue"), 
-	 new Character("Hu_Tao", "5", "Pyro", "Medium", "Female", "Polearm", "Liyue"), 
-	 new Character("Jean", "5", "Anemo", "Tall", "Female", "Sword", "Mondstadt"), 
-	 new Character("Kaeya", "4", "Cryo", "Tall", "Male", "Sword", "Mondstadt"), 
-	 new Character("Kazuha", "5", "Anemo", "Medium", "Male", "Sword", "Inazuma"), 
-	 new Character("Keqing", "5", "Electro", "Medium", "Female", "Sword", "Liyue"), 
-	 new Character("Klee", "5", "Pyro", "Chibi", "Female", "Catalyst", "Mondstadt"), 
-	 new Character("Kokomi", "5", "Hydro", "Medium", "Female", "Catalyst", "Inazuma"), 
-	 new Character("Kujou_Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma"), 
-	 new Character("Lisa", "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt"), 
-	 new Character("Lumine", "5", "Anemo", "Medium", "Female", "Sword", "Outlander"), 
-	 new Character("Mona", "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt"), 
-	 new Character("Ningguang", "4", "Geo", "Tall", "Female", "Catalyst", "Liyue"), 
-	 new Character("Noelle", "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt"), 
-	 new Character("Qiqi", "5", "Cryo", "Chibi", "Female", "Sword", "Liyue"), 
-	 new Character("Raiden_Shogun|Raiden", "5", "Electro", "Tall", "Female", "Polearm", "Inazuma"), 
-	 new Character("Razor", "4", "Electro", "Medium", "Male", "Claymore", "Mondstadt"), 
-	 new Character("Rosaria", "4", "Cryo", "Tall", "Female", "Polearm", "Mondstadt"), 
-	 new Character("Sayu", "4", "Anemo", "Chibi", "Female", "Claymore", "Inazuma"), 
-	 new Character("Sucrose", "4", "Anemo", "Medium", "Female", "Catalyst", "Mondstadt"), 
-	 new Character("Tartaglia", "5", "Hydro", "Tall", "Male", "Bow", "Snezhnaya"), 
-	 new Character("Thoma", "4", "Pyro", "Tall", "Male", "Polearm", "Inazuma"), 
-	 new Character("Venti", "5", "Anemo", "Medium", "Male", "Bow", "Mondstadt"), 
-	 new Character("Xiangling", "4", "Pyro", "Medium", "Female", "Polearm", "Liyue"), 
-	 new Character("Xiao", "5", "Anemo", "Medium", "Male", "Polearm", "Liyue"), 
-	 new Character("Xingqiu", "4", "Hydro", "Medium", "Male", "Sword", "Liyue"), 
-	 new Character("Xinyan", "4", "Pyro", "Medium", "Female", "Claymore", "Liyue"), 
-	 new Character("Yanfei", "4", "Pyro", "Medium", "Female", "Catalyst", "Liyue"), 
-	 new Character("Yoimiya", "5", "Pyro", "Medium", "Female", "Bow", "Inazuma"), 
-	 new Character("Zhongli", "5", "Geo", "Tall", "Male", "Polearm", "Liyue")
+	 new Character("Aether", "5", "Geo", "Medium", "Male", "Sword", "Outlander", "v1.0"), 
+	 new Character("Albedo", "5", "Geo", "Medium", "Male", "Sword", "Mondstadt", "v1.2"), 
+	 new Character("Aloy", "5a", "Cryo", "Medium", "Female", "Bow", "Outlander", "v1.0"), 
+	 new Character("Amber", "4", "Pyro", "Medium", "Female", "Bow", "Mondstadt", "v1.0"), 
+	 new Character("Ayaka", "5", "Cryo", "Medium", "Female", "Sword", "Inazuma", "v2.0"), 
+	 new Character("Barbara", "4", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0"), 
+	 new Character("Beidou", "4", "Electro", "Tall", "Female", "Claymore", "Liyue", "v1.0"), 
+	 new Character("Bennett", "4", "Pyro", "Medium", "Male", "Sword", "Mondstadt", "v1.0"), 
+	 new Character("Chongyun", "4", "Cryo", "Medium", "Male", "Claymore", "Liyue", "v1.0"), 
+	 new Character("Diluc", "5", "Pyro", "Tall", "Male", "Claymore", "Mondstadt", "v1.0"), 
+	 new Character("Diona", "4", "Cryo", "Chibi", "Female", "Bow", "Mondstadt", "v1.1"), 
+	 new Character("Eula", "5", "Cryo", "Tall", "Female", "Claymore", "Mondstadt", "v1.5"), 
+	 new Character("Fischl", "4", "Electro", "Medium", "Female", "Bow", "Mondstadt", "v1.0"), 
+	 new Character("Ganyu", "5", "Cryo", "Medium", "Female", "Bow", "Liyue", "v1.2"), 
+	 new Character("Hu_Tao", "5", "Pyro", "Medium", "Female", "Polearm", "Liyue", "v1.3"), 
+	 new Character("Jean", "5", "Anemo", "Tall", "Female", "Sword", "Mondstadt", "v1.0"), 
+	 new Character("Kaeya", "4", "Cryo", "Tall", "Male", "Sword", "Mondstadt", "v1.0"), 
+	 new Character("Kazuha", "5", "Anemo", "Medium", "Male", "Sword", "Inazuma", "v1.6"), 
+	 new Character("Keqing", "5", "Electro", "Medium", "Female", "Sword", "Liyue", "v1.0"), 
+	 new Character("Klee", "5", "Pyro", "Chibi", "Female", "Catalyst", "Mondstadt", "v1.0"), 
+	 new Character("Kokomi", "5", "Hydro", "Medium", "Female", "Catalyst", "Inazuma", "v2.1"), 
+	 new Character("Kujou_Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma", "v2.1"), 
+	 new Character("Lisa", "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt", "v1.0"), 
+	 new Character("Lumine", "5", "Anemo", "Medium", "Female", "Sword", "Outlander", "v1.0"), 
+	 new Character("Mona", "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0"), 
+	 new Character("Ningguang", "4", "Geo", "Tall", "Female", "Catalyst", "Liyue", "v1.0"), 
+	 new Character("Noelle", "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt", "v1.0"), 
+	 new Character("Qiqi", "5", "Cryo", "Chibi", "Female", "Sword", "Liyue", "v1.0"), 
+	 new Character("Raiden_Shogun|Raiden", "5", "Electro", "Tall", "Female", "Polearm", "Inazuma", "v2.1"), 
+	 new Character("Razor", "4", "Electro", "Medium", "Male", "Claymore", "Mondstadt", "v1.0"), 
+	 new Character("Rosaria", "4", "Cryo", "Tall", "Female", "Polearm", "Mondstadt", "v1.4"), 
+	 new Character("Sayu", "4", "Anemo", "Chibi", "Female", "Claymore", "Inazuma", "v2.0"), 
+	 new Character("Sucrose", "4", "Anemo", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0"), 
+	 new Character("Tartaglia", "5", "Hydro", "Tall", "Male", "Bow", "Snezhnaya", "v1.1"), 
+	 new Character("Thoma", "4", "Pyro", "Tall", "Male", "Polearm", "Inazuma", "v2.2"), 
+	 new Character("Venti", "5", "Anemo", "Medium", "Male", "Bow", "Mondstadt", "v1.0"), 
+	 new Character("Xiangling", "4", "Pyro", "Medium", "Female", "Polearm", "Liyue", "v1.0"), 
+	 new Character("Xiao", "5", "Anemo", "Medium", "Male", "Polearm", "Liyue", "v1.3"), 
+	 new Character("Xingqiu", "4", "Hydro", "Medium", "Male", "Sword", "Liyue", "v1.0"), 
+	 new Character("Xinyan", "4", "Pyro", "Medium", "Female", "Claymore", "Liyue", "v1.1"), 
+	 new Character("Yanfei", "4", "Pyro", "Medium", "Female", "Catalyst", "Liyue", "v1.5"), 
+	 new Character("Yoimiya", "5", "Pyro", "Medium", "Female", "Bow", "Inazuma", "v2.0"), 
+	 new Character("Zhongli", "5", "Geo", "Tall", "Male", "Polearm", "Liyue", "v1.1")
 
 ];
 
