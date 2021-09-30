@@ -156,12 +156,12 @@ var MakeGrid = function() {
 	for (var j in cols)
 	{
 		var col = cols[j];
-		header.append($("<th>"+col+"</th>"));
+		header.append($("<th>"+col+"</th>").addClass(model.previousSort).addClass(col));
 	}
 	tbody.append(header);
 	for (var i in rows) {
 		var row = rows[i];
-		var rowelem = $("<tr>").append($("<th>"+row+"</th>"));
+		var rowelem = $("<tr>").append($("<th>"+row+"</th>").addClass(model.currentSort).addClass(row));
 		for (var j in cols) {
 			var col = cols[j];
 			var cell = $("<td></td>");
@@ -297,7 +297,7 @@ $(document).ready(function(){
 	display: inline-block;
 	border-radius: 10px;
 	overflow: hidden;
-	transition: transform 0.1s, top 0.5s, left 0.5s;
+	transition: transform 0.1s, top 0.5s, left 0.5s, opacity 0.5s;
 }
 
 .card.invisible {
@@ -320,6 +320,11 @@ $(document).ready(function(){
 .card.rarity-5  {	background: linear-gradient(0deg,#de9552 0%,#9a6d43 100%);}
 .card.rarity-5a {	background: linear-gradient(0deg,#b8454a 0%,#a3464a 100%);}
 
+th.weapon, th.region, th.element {
+	background-size: contain;
+    background-repeat: no-repeat;
+	height: 70px;
+}
 
 
 
