@@ -93,7 +93,9 @@ Character.prototype.render = function() {
 
 
 var sortCards = function(comparator) {
-var cards = $(".card.invisible");
+	var cards = $(".card.invisible");
+	if (model.grid && MakeGrid()) return;
+	$(".sortTable").remove();
 	cards.detach();
     cards.sort(comparator);  
 	$("#content").append(cards);
@@ -105,6 +107,10 @@ var Randomize = function() {
 }
 
 var Reposition = function() {
+	if (!model.grid) {
+		$("#content").append($(".sortTable .card.invisible").detach());
+		$(".sortTable").remove();
+	}
 	$(".card.real").each(function(){
 		$(this).css("left", $(this).data("copy")[0].getBoundingClientRect().left);
 		$(this).css("top", $(this).data("copy")[0].getBoundingClientRect().top);
@@ -112,7 +118,77 @@ var Reposition = function() {
 	
 };
 
-var currentSort = "";
+
+var model = {
+	currentSort: "",
+	currentSortPolarity: 1,
+	previousSort: "",
+	previousSortPolarity: 1,
+	grid: false
+};
+
+var MakeGrid = function() {
+	if (model.currentSort == "" || model.previousSort == "") return false;
+	var cards = $(".card.invisible").detach();
+	$(".sortTable").remove();
+	var cols = [];
+	var rows = [];
+	var table = {};
+	
+	cards.each(function(){
+		var propRow = $(this).data("character")[model.currentSort];
+		var propCol = $(this).data("character")[model.previousSort];
+		if (!cols.includes(propCol)) cols.push(propCol);
+		if (!rows.includes(propRow)) rows.push(propRow);
+	});
+	rows.sort();
+	if (model.currentSortPolarity == -1) rows.reverse();
+	cols.sort();
+	if (model.previousSortPolarity == -1) cols.reverse();
+	
+	var tableElem = $("<table>").addClass("sortTable");
+	$("#content").append(tableElem);
+	var tbody = $("<tbody>");
+	tableElem.append(tbody);
+	var header = $("<tr>").append($("<th>"));
+	for (var j in cols)
+	{
+		var col = cols[j];
+		header.append($("<th>"+col+"</th>"));
+	}
+	tbody.append(header);
+	for (var i in rows) {
+		var row = rows[i];
+		var rowelem = $("<tr>").append($("<th>"+row+"</th>"));
+		for (var j in cols) {
+			var col = cols[j];
+			var cell = $("<td></td>");
+			if (! (row in table)) table[row] = {};
+			table[row][col] = cell;
+			rowelem.append(cell);
+		}
+		tbody.append(rowelem);
+	}
+	
+	cards.each(function() {
+		var propRow = $(this).data("character")[model.currentSort];
+		var propCol = $(this).data("character")[model.previousSort];
+		table[propRow][propCol].append($(this));
+	});
+	
+	Reposition();
+	return true;
+};
+
+var GridMode = function() {
+	var gridButton = $("<div>grid</div>").addClass("sorter");
+	gridButton.click(function(){ 
+		model.grid = !model.grid;
+		MakeGrid();
+	});
+	$("#sorts").append(gridButton);
+};
+
 
 var Init = function() {
 	for (var quality in qualities) {
@@ -120,19 +196,21 @@ var Init = function() {
 		sorter.data("sort", qualities[quality][0]);
 		sorter.click(function(){		
 			var prop = $(this).data("sort");
-			var polarity = 1;
-			if (prop == currentSort) {
-				polarity = -1;
-				currentSort = '';
+			if (prop == model.currentSort) {
+				model.currentSortPolarity *= -1;
 			} else {
-				currentSort = prop;
+				model.previousSort = model.currentSort;
+				model.previousSortPolarity = model.currentSortPolarity;
+				model.currentSort = prop;
+				model.currentSortPolarity = 1;
 			}
 			sortCards(function(a, b) {
 //			console.log($(a).data("character")[prop]);
-			return polarity * $(a).data("character")[prop].localeCompare($(b).data("character")[prop]); });
+			return model.currentSortPolarity * $(a).data("character")[prop].localeCompare($(b).data("character")[prop]); });
 		});
 		$("#sorts").append(sorter);
 	}
+	GridMode();
 	var random = $("<div>random</div>").addClass("sorter");
 	random.click(Randomize);
 	$("#sorts").append(random);
@@ -147,6 +225,7 @@ var Init = function() {
 		$("#content").append(card);
 		
 	}
+	
 };
 
 $(document).ready(function(){
@@ -216,7 +295,7 @@ $(document).ready(function(){
 	display: inline-block;
 	border-radius: 10px;
 	overflow: hidden;
-	transition: transform 0.1s, top 0.3s, left 0.3s;
+	transition: transform 0.1s, top 0.5s, left 0.5s;
 }
 
 .card.invisible {
@@ -310,6 +389,22 @@ body {
 	color: #fff;
 	font-family: Tahoma;
 	user-select: none;
+}
+
+td {
+	text-align: center;
+}
+
+tr:nth-child(even) {
+	background-color : #111;
+}
+
+td:nth-child(even), th:nth-child(even) {
+	background-color : #111;
+}
+
+tr:nth-child(even) td:nth-child(even) {
+	background-color : #181818;
 }
 
 
