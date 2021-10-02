@@ -103,16 +103,18 @@ var Update = function() {
 
 var sortCards = function(comparator) {
 	var cards = $(".card.invisible");
-	if (model.grid && MakeGrid()) return;
-	$(".sortTable").remove();
+	if (MakeGrid()) return;
 	cards.detach();
+	$(".sortTable").remove();	
     cards.sort(comparator);  
 	$("#content").append(cards);
 	Reposition();
 };
 
 var Randomize = function() {
+	model.grid = false;
 	sortCards(function() { return (Math.round(Math.random())-0.5); });
+	Update();
 }
 
 var Reposition = function() {
@@ -205,6 +207,7 @@ var GridMode = function() {
 	gridButton.click(function(){ 
 		model.grid = !model.grid;
 		MakeGrid();
+		Reposition();
 	});
 	$("#sorts").append(gridButton);
 };
