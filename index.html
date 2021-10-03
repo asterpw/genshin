@@ -7,7 +7,7 @@
 
 var Character = function(name, rarity, element, height, sex, weapon, region, release, talentbook) {
 	this.name = name.replace(/\|.*/, "");
-	this.displayname = name.replace(/.*\|/, "").replace("_", " ");
+	this.displayname = name.replace(/.*\|/, "");
 	this.rarity = rarity;
 	this.element = element;
 	this.height = height;
@@ -16,6 +16,9 @@ var Character = function(name, rarity, element, height, sex, weapon, region, rel
 	this.region = region;
 	this.release = release;
 	this.talentbook = talentbook;
+	this.bossdrop = "";
+	this.speciality = "";
+	this.banners = [];
 }
 
 var qualities = [
@@ -29,7 +32,8 @@ var qualities = [
 	["region", ["Liyue", "Mondstadt", "Inazuma", "Outlander"]],
 	["release", []],
 	["talentbook", []],
-
+	["speciality", []],
+	["bossdrop", []],
 ];
 
 var characters = [
@@ -47,21 +51,21 @@ var characters = [
 	 new Character("Eula",    "5", "Cryo", "Tall", "Female", "Claymore", "Mondstadt", "v1.5", "Resistance"), 
 	 new Character("Fischl",    "4", "Electro", "Medium", "Female", "Bow", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Ganyu",     "5", "Cryo", "Medium", "Female", "Bow", "Liyue", "v1.2", "Diligence"), 
-	 new Character("Hu_Tao",    "5", "Pyro", "Medium", "Female", "Polearm", "Liyue", "v1.3", "Diligence"), 
+	 new Character("Hu Tao",    "5", "Pyro", "Medium", "Female", "Polearm", "Liyue", "v1.3", "Diligence"), 
 	 new Character("Jean",      "5", "Anemo", "Tall", "Female", "Sword", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Kaeya",     "4", "Cryo", "Tall", "Male", "Sword", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Kazuha",    "5", "Anemo", "Medium", "Male", "Sword", "Inazuma", "v1.6", "Diligence"), 
 	 new Character("Keqing",    "5", "Electro", "Medium", "Female", "Sword", "Liyue", "v1.0", "Prosperity"), 
 	 new Character("Klee",      "5", "Pyro", "Chibi", "Female", "Catalyst", "Mondstadt", "v1.0", "Freedom"), 
 	 new Character("Kokomi",    "5", "Hydro", "Medium", "Female", "Catalyst", "Inazuma", "v2.1", "Transience"), 
-	 new Character("Kujou_Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma", "v2.1", "Elegance"), 
+	 new Character("Kujou Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma", "v2.1", "Elegance"), 
 	 new Character("Lisa",       "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Lumine",     "5", "Anemo", "Medium", "Female", "Sword", "Outlander", "v1.0", "Freedom"), 
 	 new Character("Mona",       "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Ningguang",  "4", "Geo", "Tall", "Female", "Catalyst", "Liyue", "v1.0", "Prosperity"), 
 	 new Character("Noelle",     "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Qiqi",       "5", "Cryo", "Chibi", "Female", "Sword", "Liyue", "v1.0", "Prosperity"), 
-	 new Character("Raiden_Shogun|Raiden", "5", "Electro", "Tall", "Female", "Polearm", "Inazuma", "v2.1", "Light"), 
+	 new Character("Raiden Shogun|Raiden", "5", "Electro", "Tall", "Female", "Polearm", "Inazuma", "v2.1", "Light"), 
 	 new Character("Razor",      "4", "Electro", "Medium", "Male", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Rosaria",    "4", "Cryo", "Tall", "Female", "Polearm", "Mondstadt", "v1.4", "Ballad"), 
 	 new Character("Sayu",       "4", "Anemo", "Chibi", "Female", "Claymore", "Inazuma", "v2.0", "Light"), 
@@ -79,13 +83,94 @@ var characters = [
 
 ];
 
+var bossDrops = {
+"Hurricane Seed": ["Jean", "Venti", "Sucrose"],
+"Lightning Prism": ["Keqing", "Beidou", "Fischl", "Lisa", "Razor"],
+"Basalt Pillar": ["Albedo", "Zhongli", "Ningguang", "Noelle"],
+"Hoarfrost Core": ["Ganyu", "Qiqi", "Chongyun", "Diona", "Kaeya", "Rosaria"],
+"Everflame Seed": ["Diluc", "Klee", "Amber", "Bennett", "Xiangling", "Xinyan"],
+"Cleansing Heart": ["Mona", "Tartaglia", "Barbara", "Xingqiu"],
+"Juvenile Jade": ["Hu Tao", "Xiao", "Yanfei"],
+"Crystalline Bloom": ["Aloy", "Eula"],
+"Marionette Core": ["Kazuha", "Sayu"],
+"Perpetual Heart": ["Ayaka"],
+"Smoldering Pearl": ["Yoimiya", "Thoma"],
+"Dew of Repudiation": ["Kokomi"],
+"Storm Beads": ["Raiden Shogun", "Kujou Sara"]};
 
+
+var specialities = {
+"Calla Lily": ["Diona", "Kaeya"],
+"Wolfhook": ["Razor"],
+"Valberry": ["Lisa", "Noelle", "Rosaria"],
+"Cecilia": ["Albedo", "Venti"],
+"Windwheel Aster": ["Aether", "Lumine", "Bennett", "Sucrose"],
+"Philanemo Mushroom": ["Klee", "Mona", "Barbara"],
+"Small Lamp Grass": ["Diluc", "Amber", "Fischl"],
+"Dandelion Seed": ["Eula", "Jean"],
+"Jueyun Chili": ["Xiangling"],
+"Noctilucous Jade": ["Beidou", "Yanfei"],
+"Silk Flower": ["Hu Tao", "Xingqiu"],
+"Glaze Lily": ["Ningguang"],
+"Qingxin": ["Ganyu", "Xiao"],
+"Starconch": ["Tartaglia"],
+"Violetgrass": ["Qiqi", "Xinyan"],
+"Cor Lapis": ["Keqing", "Zhongli", "Chongyun"],
+"Onikabuto": [],
+"Sakura Bloom": ["Ayaka"],
+"Crystal Marrow": ["Aloy", "Sayu"],
+"Dendrobium": ["Kujou Sara"],
+"Naku Weed": ["Yoimiya"],
+"Sea Ganoderma": ["Kazuha"],
+"Sango Pearl": ["Kokomi"],
+"Amakumo Fruit": ["Raiden Shogun"],
+"Fluorescent Fungus": ["Thoma"]
+};
+
+var banners =  {
+"Ballad in Goblets 2020-09-28" : ["Venti",  "Fischl",  "Xiangling",  "Barbara"], 
+"Sparkling Steps 2020-10-20" : ["Klee",  "Sucrose",  "Noelle",  "Xingqiu"], 
+"Farewell of Snezhnaya 2020-11-11" : ["Tartaglia",  "Diona",  "Ningguang",  "Beidou"], 
+"Gentry of Hermitage 2020-12-01" : ["Zhongli",  "Xinyan",  "Chongyun",  "Razor"], 
+"Secretum Secretorum 2020-12-23" : ["Albedo",  "Fischl",  "Sucrose",  "Bennett"], 
+"Adrift in the Harbor 2021-01-12" : ["Ganyu",  "Noelle",  "Xingqiu",  "Xiangling"], 
+"Invitation to Mundane Life 2021-02-03" : ["Xiao",  "Diona",  "Beidou",  "Xinyan"], 
+"Dance of Lanterns 2021-02-17" : ["Keqing",  "Bennett",  "Ningguang",  "Barbara"], 
+"Moment of Bloom 2021-03-02" : ["Hu Tao",  "Xingqiu",  "Xiangling",  "Chongyun"], 
+"Ballad in Goblets 2021-03-17" : ["Venti",  "Noelle",  "Sucrose",  "Razor"], 
+"Farewell of Snezhnaya 2021-04-06" : ["Tartaglia",  "Rosaria",  "Fischl",  "Barbara"], 
+"Gentry of Hermitage 2021-04-28" : ["Zhongli",  "Yanfei",  "Noelle",  "Diona"], 
+"Born of Ocean Swell 2021-05-18" : ["Eula",  "Xinyan",  "Xingqiu",  "Beidou"], 
+"Sparkling Steps 2021-06-09" : ["Klee",  "Sucrose",  "Fischl",  "Barbara"], 
+"Leaves in the Wind 2021-06-29" : ["Kazuha",  "Bennett",  "Razor",  "Rosaria"], 
+"The Heron's Court 2021-07-21" : ["Ayaka",  "Ningguang",  "Chongyun",  "Yanfei"], 
+"Tapestry of Golden Flames 2021-08-10" : ["Yoimiya",  "Diona",  "Xinyan",  "Sayu"], 
+"Reign of Serenity 2021-09-01" : ["Raiden Shogun",  "Sucrose",  "Kujou Sara",  "Xiangling"], 
+"Drifting Luminescence 2021-09-21" : ["Kokomi",  "Xingqiu",  "Beidou",  "Rosaria"],
+};
+
+var appendData = function(field, datamap, append=false) {
+	for (var i in datamap) {
+		for (var j in datamap[i]) {
+			console.log(datamap[i][j]);
+			var character = characters.find( c => c.name == datamap[i][j]);
+			if (!append)
+				character[field] = i;
+			else
+				character[field].push(i);
+		}
+	}
+};
+
+appendData("bossdrop", bossDrops);
+appendData("speciality", specialities);
+appendData("banners", banners, true);
 
 Character.prototype.render = function() {
 	var card = $('<div class="card"></div>');
 	card.addClass("rarity-" + this.rarity);
 	var face = $('<div class="face"></div>');
-	face.css('background-image', "url('images/thumbs/Character_"+this.name+"_Thumb.png')");
+	face.css('background-image', "url('images/thumbs/Character_"+this.name.replace(/ /g, "_")+"_Thumb.png')");
 	var element = $('<div class="element"></div>').addClass(this.element);
 	var weapon = $('<div class="weapon"></div>').addClass(this.weapon);
 	var region = $('<div class="region"></div>').addClass(this.region);
@@ -166,12 +251,12 @@ var MakeGrid = function() {
 	for (var j in cols)
 	{
 		var col = cols[j];
-		header.append($("<th>"+col+"</th>").addClass(model.previousSort).addClass(col));
+		header.append($("<th>"+col+"</th>").addClass(model.previousSort).addClass(col.replace(/ /g, "_")));
 	}
 	tbody.append(header);
 	for (var i in rows) {
 		var row = rows[i];
-		var rowelem = $("<tr>").append($("<th>"+row+"</th>").addClass(model.currentSort).addClass(row));
+		var rowelem = $("<tr>").append($("<th>"+row+"</th>").addClass(model.currentSort).addClass(row.replace(/ /g, "_")));
 		for (var j in cols) {
 			var col = cols[j];
 			var cell = $("<td></td>");
@@ -217,7 +302,9 @@ var ScaleCards = function(scale) {
 	$(".card.invisible").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px").css("margin", (10 * scale)+"px");
 	var trans = ((scale - 1) * 50) + "%";
 	$(".card.real").css("transform", "translateX("+trans+") translateY("+trans+") scale("+scale+") ");
+	//$(".card.real").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px");
 	Reposition();
+	$("#dynamicStyle").html(".card:hover {transform: translateX("+trans+") translateY("+trans+") scale("+1.07*scale+") !important;}");
 };
 
 
@@ -271,6 +358,10 @@ $(document).ready(function(){
 
 
 </script>
+<style id="dynamicStyle">
+.card {}
+
+</style>
 <style>
 @font-face {
 	font-family:"Genshin";
@@ -297,25 +388,6 @@ $(document).ready(function(){
     background-repeat: no-repeat;
 }
 
-.card .weapon {
-	position: absolute;
-	top: 2%;
-	left: 52%;
-    height: 100%;
-    width: 40%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
-.card .region {
-	position: absolute;
-	top: 2%;
-	left: 52%;
-    height: 100%;
-    width: 40%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
 
 
 .card {
@@ -350,13 +422,85 @@ $(document).ready(function(){
 .card.rarity-5  {	background: linear-gradient(0deg,#de9552 0%,#9a6d43 100%);}
 .card.rarity-5a {	background: linear-gradient(0deg,#b8454a 0%,#a3464a 100%);}
 
-th.weapon, th.region, th.element, th.talentbook {
+
+.card .name {
+	height: 20%;
+	text-align: center;
+	background-color: #E9E5DC;
+	font-size: 12pt;
+	color: #633;
+	
+	font-family: "Genshin","Helvetica Neue",Helvetica,Arial,sans-serif;
+	vertical-align: middle;
+	position: relative;
+}
+
+.card .name:before {
+	content: "";
+	position:absolute;
+	height: 100%;
+	width: 100%;
+	top: -100%;
+	left: 0%;
+    border-radius: 0 0 20px 0;
+    box-shadow: 20px 1px 0 0 #E9E5DC;
+}
+
+.card .name div {
+	position: absolute;
+	top: 50%; left: 50%;
+	width: 100%;
+	transform: translate(-50%,-50%);
+	display: inline-block; 
+}
+
+
+
+th.weapon, th.region, th.element, th.talentbook, th.speciality, th.bossdrop {
 	background-size: contain;
     background-repeat: no-repeat;
 	height: 70px;
 }
 
 
+
+.bossdrop.Hurricane_Seed         {background-image: url('images/Item_Hurricane_Seed.png')}
+.bossdrop.Lightning_Prism         {background-image: url('images/Item_Lightning_Prism.png')}
+.bossdrop.Basalt_Pillar         {background-image: url('images/Item_Basalt_Pillar.png')}
+.bossdrop.Hoarfrost_Core         {background-image: url('images/Item_Hoarfrost_Core.png')}
+.bossdrop.Everflame_Seed         {background-image: url('images/Item_Everflame_Seed.png')}
+.bossdrop.Cleansing_Heart         {background-image: url('images/Item_Cleansing_Heart.png')}
+.bossdrop.Juvenile_Jade         {background-image: url('images/Item_Juvenile_Jade.png')}
+.bossdrop.Crystalline_Bloom         {background-image: url('images/Item_Crystalline_Bloom.png')}
+.bossdrop.Marionette_Core         {background-image: url('images/Item_Marionette_Core.png')}
+.bossdrop.Perpetual_Heart         {background-image: url('images/Item_Perpetual_Heart.png')}
+.bossdrop.Smoldering_Pearl         {background-image: url('images/Item_Smoldering_Pearl.png')}
+.bossdrop.Dew_of_Repudiation         {background-image: url('images/Item_Dew_of_Repudiation.png')}
+.bossdrop.Storm_Beads         {background-image: url('images/Item_Storm_Beads.png')}
+.speciality.Calla_Lily         {background-image: url('images/Item_Calla_Lily.png')}
+.speciality.Wolfhook         {background-image: url('images/Item_Wolfhook.png')}
+.speciality.Valberry         {background-image: url('images/Item_Valberry.png')}
+.speciality.Cecilia         {background-image: url('images/Item_Cecilia.png')}
+.speciality.Windwheel_Aster         {background-image: url('images/Item_Windwheel_Aster.png')}
+.speciality.Philanemo_Mushroom         {background-image: url('images/Item_Philanemo_Mushroom.png')}
+.speciality.Small_Lamp_Grass         {background-image: url('images/Item_Small_Lamp_Grass.png')}
+.speciality.Dandelion_Seed         {background-image: url('images/Item_Dandelion_Seed.png')}
+.speciality.Jueyun_Chili         {background-image: url('images/Item_Jueyun_Chili.png')}
+.speciality.Noctilucous_Jade         {background-image: url('images/Item_Noctilucous_Jade.png')}
+.speciality.Silk_Flower         {background-image: url('images/Item_Silk_Flower.png')}
+.speciality.Glaze_Lily         {background-image: url('images/Item_Glaze_Lily.png')}
+.speciality.Qingxin         {background-image: url('images/Item_Qingxin.png')}
+.speciality.Starconch         {background-image: url('images/Item_Starconch.png')}
+.speciality.Violetgrass         {background-image: url('images/Item_Violetgrass.png')}
+.speciality.Cor_Lapis         {background-image: url('images/Item_Cor_Lapis.png')}
+.speciality.Onikabuto         {background-image: url('images/Item_Onikabuto.png')}
+.speciality.Sakura_Bloom         {background-image: url('images/Item_Sakura_Bloom.png')}
+.speciality.Crystal_Marrow         {background-image: url('images/Item_Crystal_Marrow.png')}
+.speciality.Dendrobium         {background-image: url('images/Item_Dendrobium.png')}
+.speciality.Naku_Weed         {background-image: url('images/Item_Naku_Weed.png')}
+.speciality.Sea_Ganoderma         {background-image: url('images/Item_Sea_Ganoderma.png')}
+.speciality.Sango_Pearl         {background-image: url('images/Item_Sango_Pearl.png')}
+.speciality.Amakumo_Fruit         {background-image: url('images/Item_Amakumo_Fruit.png')}
 
 .talentbook.Ballad         {background-image: url('images/Item_Guide_to_Ballad.png')}
 .talentbook.Diligence         {background-image: url('images/Item_Guide_to_Diligence.png')}
@@ -388,38 +532,6 @@ th.weapon, th.region, th.element, th.talentbook {
 .element.Hydro   {background-image: url('images/Element_Hydro.png')}
 .element.Electro {background-image: url('images/Element_Electro.png')}
 .element.Dendro  {background-image: url('images/Element_Dendro.png')}
-
-.card .name {
-	height: 20%;
-	text-align: center;
-	background-color: #E9E5DC;
-	font-size: 12pt;
-	color: #633;
-	
-	font-family: "Genshin","Helvetica Neue",Helvetica,Arial,sans-serif;
-	vertical-align: middle;
-	position: relative;
-}
-
-.card .name:before {
-	content: "";
-	position:absolute;
-	height: 100%;
-	width: 100%;
-	top: -100%;
-	left: 0%;
-    border-radius: 0 0 20px 0;
-    box-shadow: 20px 1px 0 0 #E9E5DC;
-	
-}
-
-.card .name div {
-	position: absolute;
-	top: 50%; left: 50%;
-	width: 100%;
-	transform: translate(-50%,-50%);
-	display: inline-block; 
-}
 
 .sorter {
 	position: relative;
@@ -461,8 +573,9 @@ tr:nth-child(even) td:nth-child(even) {
 </style>
 </head>
 <body>
-<div id="content">
 <div id="sorts"></div>
+<div id="content">
+
 </div>
 </body>
 </html>
