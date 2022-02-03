@@ -17,7 +17,7 @@ var Character = function(name, rarity, element, height, sex, weapon, region, rel
 	this.release = release;
 	this.talentbook = talentbook;
 	this.bossdrop = "";
-	this.speciality = "";
+	this.specialty = "";
 	this.banners = [];
 }
 
@@ -32,7 +32,7 @@ var qualities = [
 	["region", ["Liyue", "Mondstadt", "Inazuma", "Outlander"]],
 	["release", []],
 	["talentbook", []],
-	["speciality", []],
+	["specialty", []],
 	["bossdrop", []],
 ];
 
@@ -79,7 +79,12 @@ var characters = [
 	 new Character("Xinyan",     "4", "Pyro", "Medium", "Female", "Claymore", "Liyue", "v1.1", "Gold"), 
 	 new Character("Yanfei",     "4", "Pyro", "Medium", "Female", "Catalyst", "Liyue", "v1.5", "Gold"), 
 	 new Character("Yoimiya",    "5", "Pyro", "Medium", "Female", "Bow", "Inazuma", "v2.0", "Transience"), 
-	 new Character("Zhongli",    "5", "Geo", "Tall", "Male", "Polearm", "Liyue", "v1.1", "Gold")
+	 new Character("Zhongli",    "5", "Geo", "Tall", "Male", "Polearm", "Liyue", "v1.1", "Gold"),
+	 new Character("Arataki Itto|Itto",    "5", "Geo", "Tall", "Male", "Claymore", "Inazuma", "v2.3", "Elegance"),
+	 new Character("Gorou",      "4", "Geo", "Medium", "Male", "Bow", "Inazuma", "v2.3", "Light"),
+	 new Character("Shenhe",     "5", "Cryo", "Tall", "Female", "Polearm", "Liyue", "v2.4", "Prosperity"),
+	 new Character("Yun Jin",    "4", "Geo", "Medium", "Female", "Polearm", "Liyue", "v2.4", "Diligence"),
+	 new Character("Yae Miku",       "5", "Electro", "Tall", "Female", "Catalyst", "Inazuma", "v2.5", "Light"), 
 
 ];
 
@@ -93,10 +98,12 @@ var bossDrops = {
 "Juvenile Jade": ["Hu Tao", "Xiao", "Yanfei"],
 "Crystalline Bloom": ["Aloy", "Eula"],
 "Marionette Core": ["Kazuha", "Sayu"],
-"Perpetual Heart": ["Ayaka"],
+"Perpetual Heart": ["Ayaka", "Gorou"],
 "Smoldering Pearl": ["Yoimiya", "Thoma"],
 "Dew of Repudiation": ["Kokomi"],
-"Storm Beads": ["Raiden Shogun", "Kujou Sara"]};
+"Storm Beads": ["Raiden Shogun", "Kujou Sara"],
+"Riftborn Regalia": ["Arataki Itto", "Yun Jin"],
+"Dragonheir's False Fin": ["Shenhe", "Yae Miku"]};
 
 
 var specialities = {
@@ -111,18 +118,18 @@ var specialities = {
 "Jueyun Chili": ["Xiangling"],
 "Noctilucous Jade": ["Beidou", "Yanfei"],
 "Silk Flower": ["Hu Tao", "Xingqiu"],
-"Glaze Lily": ["Ningguang"],
-"Qingxin": ["Ganyu", "Xiao"],
+"Glaze Lily": ["Ningguang", "Yun Jin"],
+"Qingxin": ["Ganyu", "Xiao", "Shenhe"],
 "Starconch": ["Tartaglia"],
 "Violetgrass": ["Qiqi", "Xinyan"],
 "Cor Lapis": ["Keqing", "Zhongli", "Chongyun"],
-"Onikabuto": [],
+"Onikabuto": ["Arataki Itto"],
 "Sakura Bloom": ["Ayaka"],
 "Crystal Marrow": ["Aloy", "Sayu"],
 "Dendrobium": ["Kujou Sara"],
 "Naku Weed": ["Yoimiya"],
-"Sea Ganoderma": ["Kazuha"],
-"Sango Pearl": ["Kokomi"],
+"Sea Ganoderma": ["Kazuha", "Yae Miku"],
+"Sango Pearl": ["Kokomi", "Gorou"],
 "Amakumo Fruit": ["Raiden Shogun"],
 "Fluorescent Fungus": ["Thoma"]
 };
@@ -163,7 +170,7 @@ var appendData = function(field, datamap, append=false) {
 };
 
 appendData("bossdrop", bossDrops);
-appendData("speciality", specialities);
+appendData("specialty", specialities);
 appendData("banners", banners, true);
 
 Character.prototype.render = function() {
@@ -171,7 +178,7 @@ Character.prototype.render = function() {
 	card.addClass("rarity-" + this.rarity);
 	var face = $('<div class="face"></div>');
 	face.css('background-image', "url('images/thumbs/Character_"+this.name.replace(/ /g, "_")+"_Thumb.png')");
-	var element = $('<div class="element"></div>').addClass(this.element);
+	var element = $('<div class="element"></div>').addClass(this.element).css('background-image', "url('images/Element_"+this.element+".png')");
 	var weapon = $('<div class="weapon"></div>').addClass(this.weapon);
 	var region = $('<div class="region"></div>').addClass(this.region);
 	card.append(face).append(element);//.append(region);
@@ -223,6 +230,23 @@ var model = {
 	grid: true
 };
 
+var addSortCss = function(obj, sorting, item) {
+	var backgroundImage = "";
+	var backgroundMap = {
+		'bossdrop': 'Item_',
+		'specialty': 'Item_',
+		'talentbook': 'Item_Guide_to_',
+		'weapon': 'Weapon_',
+		'region': 'Region_',
+		'element': 'Element_'
+	};
+	if (sorting in backgroundMap) {
+		obj.css('background-image', "url('images/" + backgroundMap[sorting]+item.replace(/ /g, "_").replace(/'/g, "%27") + ".png')");
+	}
+	obj.addClass(sorting).addClass(+item.replace(/ /g, "_"));
+	return obj;
+};
+
 var MakeGrid = function() {
 	if (!model.grid) return false;
 	if (model.currentSort == "" || model.previousSort == "") return false;
@@ -251,12 +275,13 @@ var MakeGrid = function() {
 	for (var j in cols)
 	{
 		var col = cols[j];
-		header.append($("<th>"+col+"</th>").addClass(model.previousSort).addClass(col.replace(/ /g, "_")));
+		header.append(addSortCss($("<th>"+col+"</th>"), model.previousSort, col));
 	}
 	tbody.append(header);
 	for (var i in rows) {
 		var row = rows[i];
-		var rowelem = $("<tr>").append($("<th>"+row+"</th>").addClass(model.currentSort).addClass(row.replace(/ /g, "_")));
+		var rowelem = $("<tr>").append(
+		addSortCss($("<th>"+row+"</th>"), model.currentSort, row.replace(/ /g, "_")));
 		for (var j in cols) {
 			var col = cols[j];
 			var cell = $("<td></td>");
@@ -456,82 +481,12 @@ $(document).ready(function(){
 
 
 
-th.weapon, th.region, th.element, th.talentbook, th.speciality, th.bossdrop {
+th.weapon, th.region, th.element, th.talentbook, th.specialty, th.bossdrop {
 	background-size: contain;
     background-repeat: no-repeat;
 	height: 70px;
 }
 
-
-
-.bossdrop.Hurricane_Seed         {background-image: url('images/Item_Hurricane_Seed.png')}
-.bossdrop.Lightning_Prism         {background-image: url('images/Item_Lightning_Prism.png')}
-.bossdrop.Basalt_Pillar         {background-image: url('images/Item_Basalt_Pillar.png')}
-.bossdrop.Hoarfrost_Core         {background-image: url('images/Item_Hoarfrost_Core.png')}
-.bossdrop.Everflame_Seed         {background-image: url('images/Item_Everflame_Seed.png')}
-.bossdrop.Cleansing_Heart         {background-image: url('images/Item_Cleansing_Heart.png')}
-.bossdrop.Juvenile_Jade         {background-image: url('images/Item_Juvenile_Jade.png')}
-.bossdrop.Crystalline_Bloom         {background-image: url('images/Item_Crystalline_Bloom.png')}
-.bossdrop.Marionette_Core         {background-image: url('images/Item_Marionette_Core.png')}
-.bossdrop.Perpetual_Heart         {background-image: url('images/Item_Perpetual_Heart.png')}
-.bossdrop.Smoldering_Pearl         {background-image: url('images/Item_Smoldering_Pearl.png')}
-.bossdrop.Dew_of_Repudiation         {background-image: url('images/Item_Dew_of_Repudiation.png')}
-.bossdrop.Storm_Beads         {background-image: url('images/Item_Storm_Beads.png')}
-.speciality.Calla_Lily         {background-image: url('images/Item_Calla_Lily.png')}
-.speciality.Wolfhook         {background-image: url('images/Item_Wolfhook.png')}
-.speciality.Valberry         {background-image: url('images/Item_Valberry.png')}
-.speciality.Cecilia         {background-image: url('images/Item_Cecilia.png')}
-.speciality.Windwheel_Aster         {background-image: url('images/Item_Windwheel_Aster.png')}
-.speciality.Philanemo_Mushroom         {background-image: url('images/Item_Philanemo_Mushroom.png')}
-.speciality.Small_Lamp_Grass         {background-image: url('images/Item_Small_Lamp_Grass.png')}
-.speciality.Dandelion_Seed         {background-image: url('images/Item_Dandelion_Seed.png')}
-.speciality.Jueyun_Chili         {background-image: url('images/Item_Jueyun_Chili.png')}
-.speciality.Noctilucous_Jade         {background-image: url('images/Item_Noctilucous_Jade.png')}
-.speciality.Silk_Flower         {background-image: url('images/Item_Silk_Flower.png')}
-.speciality.Glaze_Lily         {background-image: url('images/Item_Glaze_Lily.png')}
-.speciality.Qingxin         {background-image: url('images/Item_Qingxin.png')}
-.speciality.Starconch         {background-image: url('images/Item_Starconch.png')}
-.speciality.Violetgrass         {background-image: url('images/Item_Violetgrass.png')}
-.speciality.Cor_Lapis         {background-image: url('images/Item_Cor_Lapis.png')}
-.speciality.Onikabuto         {background-image: url('images/Item_Onikabuto.png')}
-.speciality.Sakura_Bloom         {background-image: url('images/Item_Sakura_Bloom.png')}
-.speciality.Crystal_Marrow         {background-image: url('images/Item_Crystal_Marrow.png')}
-.speciality.Dendrobium         {background-image: url('images/Item_Dendrobium.png')}
-.speciality.Naku_Weed         {background-image: url('images/Item_Naku_Weed.png')}
-.speciality.Sea_Ganoderma         {background-image: url('images/Item_Sea_Ganoderma.png')}
-.speciality.Sango_Pearl         {background-image: url('images/Item_Sango_Pearl.png')}
-.speciality.Amakumo_Fruit         {background-image: url('images/Item_Amakumo_Fruit.png')}
-
-.talentbook.Ballad         {background-image: url('images/Item_Guide_to_Ballad.png')}
-.talentbook.Diligence         {background-image: url('images/Item_Guide_to_Diligence.png')}
-.talentbook.Elegance         {background-image: url('images/Item_Guide_to_Elegance.png')}
-.talentbook.Freedom         {background-image: url('images/Item_Guide_to_Freedom.png')}
-.talentbook.Gold         {background-image: url('images/Item_Guide_to_Gold.png')}
-.talentbook.Light         {background-image: url('images/Item_Guide_to_Light.png')}
-.talentbook.Prosperity         {background-image: url('images/Item_Guide_to_Prosperity.png')}
-.talentbook.Resistance         {background-image: url('images/Item_Guide_to_Resistance.png')}
-.talentbook.Transience         {background-image: url('images/Item_Guide_to_Transience.png')}
-
-.weapon.Bow         {background-image: url('images/Weapon_Bow.png')}
-.weapon.Sword       {background-image: url('images/Weapon_Sword.png')}
-.weapon.Claymore    {background-image: url('images/Weapon_Claymore.png')}
-.weapon.Catalyst    {background-image: url('images/Weapon_Catalyst.png')}
-.weapon.Polearm     {background-image: url('images/Weapon_Polearm.png')}
-
-.region.Liyue         {background-image: url('images/Region_Liyue.png')}
-.region.Inazuma       {background-image: url('images/Region_Inazuma.png')}
-.region.Mondstadt     {background-image: url('images/Region_Mondstadt.png')}
-.region.Outlander     {background-image: url('images/Region_Outlander.png')}
-.region.Snezhnaya     {background-image: url('images/Region_Outlander.png')}
-
-
-.element.Geo     {background-image: url('images/Element_Geo.png')}
-.element.Anemo   {background-image: url('images/Element_Anemo.png')}
-.element.Pyro    {background-image: url('images/Element_Pyro.png')}
-.element.Cryo    {background-image: url('images/Element_Cryo.png')}
-.element.Hydro   {background-image: url('images/Element_Hydro.png')}
-.element.Electro {background-image: url('images/Element_Electro.png')}
-.element.Dendro  {background-image: url('images/Element_Dendro.png')}
 
 .sorter {
 	position: relative;
