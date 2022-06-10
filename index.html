@@ -18,6 +18,7 @@ var Character = function(name, rarity, element, height, sex, weapon, region, rel
 	this.talentbook = talentbook;
 	this.bossdrop = "";
 	this.specialty = "";
+	this.weekly = "";
 	this.banners = [];
 }
 
@@ -34,6 +35,7 @@ var qualities = [
 	["talentbook", []],
 	["specialty", []],
 	["bossdrop", []],
+	["weekly", []],
 ];
 
 var characters = [
@@ -41,34 +43,34 @@ var characters = [
 	 new Character("Albedo",  "5", "Geo", "Medium", "Male", "Sword", "Mondstadt", "v1.2", "Ballad"), 
 	 new Character("Aloy",    "5a", "Cryo", "Medium", "Female", "Bow", "Outlander", "v2.1", "Freedom"), 
 	 new Character("Amber",   "4", "Pyro", "Medium", "Female", "Bow", "Mondstadt", "v1.0", "Freedom"), 
-	 new Character("Ayaka",   "5", "Cryo", "Medium", "Female", "Sword", "Inazuma", "v2.0", "Elegance"), 
+	 new Character("Kamisato Ayaka|Ayaka",   "5", "Cryo", "Medium", "Female", "Sword", "Inazuma", "v2.0", "Elegance"), 
 	 new Character("Barbara", "4", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0", "Freedom"), 
 	 new Character("Beidou",  "4", "Electro", "Tall", "Female", "Claymore", "Liyue", "v1.0", "Gold"), 
 	 new Character("Bennett", "4", "Pyro", "Medium", "Male", "Sword", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Chongyun", "4", "Cryo", "Medium", "Male", "Claymore", "Liyue", "v1.0", "Diligence"), 
 	 new Character("Diluc",    "5", "Pyro", "Tall", "Male", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
-	 new Character("Diona",    "4", "Cryo", "Chibi", "Female", "Bow", "Mondstadt", "v1.1", "Freedom"), 
+	 new Character("Diona",    "4", "Cryo", "Small", "Female", "Bow", "Mondstadt", "v1.1", "Freedom"), 
 	 new Character("Eula",    "5", "Cryo", "Tall", "Female", "Claymore", "Mondstadt", "v1.5", "Resistance"), 
 	 new Character("Fischl",    "4", "Electro", "Medium", "Female", "Bow", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Ganyu",     "5", "Cryo", "Medium", "Female", "Bow", "Liyue", "v1.2", "Diligence"), 
 	 new Character("Hu Tao",    "5", "Pyro", "Medium", "Female", "Polearm", "Liyue", "v1.3", "Diligence"), 
 	 new Character("Jean",      "5", "Anemo", "Tall", "Female", "Sword", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Kaeya",     "4", "Cryo", "Tall", "Male", "Sword", "Mondstadt", "v1.0", "Ballad"), 
-	 new Character("Kazuha",    "5", "Anemo", "Medium", "Male", "Sword", "Inazuma", "v1.6", "Diligence"), 
+	 new Character("Kaedehara Kazuha|Kazuha",    "5", "Anemo", "Medium", "Male", "Sword", "Inazuma", "v1.6", "Diligence"), 
 	 new Character("Keqing",    "5", "Electro", "Medium", "Female", "Sword", "Liyue", "v1.0", "Prosperity"), 
-	 new Character("Klee",      "5", "Pyro", "Chibi", "Female", "Catalyst", "Mondstadt", "v1.0", "Freedom"), 
-	 new Character("Kokomi",    "5", "Hydro", "Medium", "Female", "Catalyst", "Inazuma", "v2.1", "Transience"), 
+	 new Character("Klee",      "5", "Pyro", "Small", "Female", "Catalyst", "Mondstadt", "v1.0", "Freedom"), 
+	 new Character("Sangonomiya Kokomi|Kokomi",    "5", "Hydro", "Medium", "Female", "Catalyst", "Inazuma", "v2.1", "Transience"), 
 	 new Character("Kujou Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma", "v2.1", "Elegance"), 
 	 new Character("Lisa",       "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Lumine",     "5", "Anemo", "Medium", "Female", "Sword", "Outlander", "v1.0", "Freedom"), 
 	 new Character("Mona",       "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Ningguang",  "4", "Geo", "Tall", "Female", "Catalyst", "Liyue", "v1.0", "Prosperity"), 
 	 new Character("Noelle",     "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
-	 new Character("Qiqi",       "5", "Cryo", "Chibi", "Female", "Sword", "Liyue", "v1.0", "Prosperity"), 
+	 new Character("Qiqi",       "5", "Cryo", "Small", "Female", "Sword", "Liyue", "v1.0", "Prosperity"), 
 	 new Character("Raiden Shogun|Raiden", "5", "Electro", "Tall", "Female", "Polearm", "Inazuma", "v2.1", "Light"), 
 	 new Character("Razor",      "4", "Electro", "Medium", "Male", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Rosaria",    "4", "Cryo", "Tall", "Female", "Polearm", "Mondstadt", "v1.4", "Ballad"), 
-	 new Character("Sayu",       "4", "Anemo", "Chibi", "Female", "Claymore", "Inazuma", "v2.0", "Light"), 
+	 new Character("Sayu",       "4", "Anemo", "Small", "Female", "Claymore", "Inazuma", "v2.0", "Light"), 
 	 new Character("Sucrose",    "4", "Anemo", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0", "Freedom"), 
 	 new Character("Tartaglia",  "5", "Hydro", "Tall", "Male", "Bow", "Snezhnaya", "v1.1", "Freedom"), 
 	 new Character("Thoma",      "4", "Pyro", "Tall", "Male", "Polearm", "Inazuma", "v2.2", "Transience"), 
@@ -84,12 +86,11 @@ var characters = [
 	 new Character("Gorou",      "4", "Geo", "Medium", "Male", "Bow", "Inazuma", "v2.3", "Light"),
 	 new Character("Shenhe",     "5", "Cryo", "Tall", "Female", "Polearm", "Liyue", "v2.4", "Prosperity"),
 	 new Character("Yun Jin",    "4", "Geo", "Medium", "Female", "Polearm", "Liyue", "v2.4", "Diligence"),
-	 new Character("Yae Miku",       "5", "Electro", "Tall", "Female", "Catalyst", "Inazuma", "v2.5", "Light"), 
-	 
+	 new Character("Yae Miko",       "5", "Electro", "Tall", "Female", "Catalyst", "Inazuma", "v2.5", "Light"), 
 	 new Character("Kamisato Ayato|Ayato",       "5", "Hydro", "Tall", "Male", "Sword", "Inazuma", "v2.6", "Elegance"), 
 	 new Character("Yelan",       "5", "Hydro", "Tall", "Female", "Bow", "Liyue", "v2.7", "Prosperity"), 
-	 new Character("Kuki Shinobu|Kuki","4", "Electro", "Medium", "Female", "Sword", "Inazuma", "v2.7", "Elegance"), 
-
+	 new Character("Kuki Shinobu|Shinobu","4", "Electro", "Medium", "Female", "Sword", "Inazuma", "v2.7", "Elegance"), 
+	 new Character("Shikanoin Heizou|Heizou","4", "Anemo", "Medium", "Male", "Catalyst", "Inazuma", "v2.7", "Transience"), 
 ];
 
 var bossDrops = {
@@ -101,14 +102,35 @@ var bossDrops = {
 "Cleansing Heart": ["Mona", "Tartaglia", "Barbara", "Xingqiu"],
 "Juvenile Jade": ["Hu Tao", "Xiao", "Yanfei"],
 "Crystalline Bloom": ["Aloy", "Eula"],
-"Marionette Core": ["Kazuha", "Sayu"],
-"Perpetual Heart": ["Ayaka", "Gorou"],
+"Marionette Core": ["Kaedehara Kazuha", "Sayu"],
+"Perpetual Heart": ["Kamisato Ayaka", "Gorou"],
 "Smoldering Pearl": ["Yoimiya", "Thoma"],
-"Dew of Repudiation": ["Kokomi", "Kamisato Ayato"],
+"Dew of Repudiation": ["Sangonomiya Kokomi", "Kamisato Ayato"],
 "Storm Beads": ["Raiden Shogun", "Kujou Sara"],
 "Riftborn Regalia": ["Arataki Itto", "Yun Jin"],
-"Dragonheir's False Fin": ["Shenhe", "Yae Miku"],
-"Runic Fang": ["Yelan", "Kuki Shinobu"],
+"Dragonheir's False Fin": ["Shenhe", "Yae Miko"],
+"Runic Fang": ["Yelan", "Kuki Shinobu", "Shikanoin Heizou"],
+};
+
+var weeklyBossDrops = {
+"00|Dvalin's Plume": ["Bennett", "Diluc", "Jean"],  
+"01|Dvalin's Claw": ["Lisa", "Noelle", "Razor", "Xiangling"],  
+"02|Dvalin's Sigh": ["Lumine", "Aether", "Amber", "Beidou", "Chongyun"],  
+"03|Tail of Boreas": ["Lumine", "Qiqi", "Venti", "Xingqiu"],  
+"04|Ring of Boreas": ["Barbara", "Keqing", "Klee", "Mona"],  
+"05|Spirit Locket of Boreas": ["Fischl", "Kaeya", "Ningguang", "Sucrose"],  
+"06|Tusk of Monoceros Caeli": ["Albedo", "Xinyan", "Zhongli"],  
+"07|Shard of a Foul Legacy": ["Diona", "Hu Tao", "Tartaglia"],  
+"08|Shadow of the Warrior": ["Ganyu", "Rosaria", "Xiao"],  
+"09|Dragon Lord's Crown": ["Aether", "Eula", "Yoimiya"],  
+"10|Bloodjade Branch": ["Kamisato Ayaka", "Yanfei"],  
+"11|Gilded Scale": ["Kaedehara Kazuha", "Sayu", "Yelan"],  
+"12|Molten Moment": ["Aloy", "Gorou", "Raiden Shogun"],  
+"13|Hellfire Butterfly": ["Sangonomiya Kokomi", "Shenhe", "Thoma"],  
+"14|Ashen Heart": ["Arataki Itto", "Kujou Sara", "Yun Jin"],  
+"15|Mudra of the Malefic General": ["Kamisato Ayato"],  
+"16|Tears of the Calamitous God": ["Kuki Shinobu"],
+"17|The Meaning of Aeons": ["Yae Miko", "Shikanoin Heizou"],  
 };
 
 
@@ -129,13 +151,13 @@ var specialities = {
 "Starconch": ["Tartaglia", "Yelan"],
 "Violetgrass": ["Qiqi", "Xinyan"],
 "Cor Lapis": ["Keqing", "Zhongli", "Chongyun"],
-"Onikabuto": ["Arataki Itto"],
-"Sakura Bloom": ["Ayaka", "Kamisato Ayato"],
+"Onikabuto": ["Arataki Itto", "Shikanoin Heizou"],
+"Sakura Bloom": ["Kamisato Ayaka", "Kamisato Ayato"],
 "Crystal Marrow": ["Aloy", "Sayu"],
 "Dendrobium": ["Kujou Sara"],
 "Naku Weed": ["Yoimiya", "Kuki Shinobu"],
-"Sea Ganoderma": ["Kazuha", "Yae Miku"],
-"Sango Pearl": ["Kokomi", "Gorou"],
+"Sea Ganoderma": ["Kaedehara Kazuha", "Yae Miko"],
+"Sango Pearl": ["Sangonomiya Kokomi", "Gorou"],
 "Amakumo Fruit": ["Raiden Shogun"],
 "Fluorescent Fungus": ["Thoma"]
 };
@@ -155,14 +177,15 @@ var banners =  {
 "Gentry of Hermitage 2021-04-28" : ["Zhongli",  "Yanfei",  "Noelle",  "Diona"], 
 "Born of Ocean Swell 2021-05-18" : ["Eula",  "Xinyan",  "Xingqiu",  "Beidou"], 
 "Sparkling Steps 2021-06-09" : ["Klee",  "Sucrose",  "Fischl",  "Barbara"], 
-"Leaves in the Wind 2021-06-29" : ["Kazuha",  "Bennett",  "Razor",  "Rosaria"], 
-"The Heron's Court 2021-07-21" : ["Ayaka",  "Ningguang",  "Chongyun",  "Yanfei"], 
+"Leaves in the Wind 2021-06-29" : ["Kaedehara Kazuha",  "Bennett",  "Razor",  "Rosaria"], 
+"The Heron's Court 2021-07-21" : ["Kamisato Ayaka",  "Ningguang",  "Chongyun",  "Yanfei"], 
 "Tapestry of Golden Flames 2021-08-10" : ["Yoimiya",  "Diona",  "Xinyan",  "Sayu"], 
 "Reign of Serenity 2021-09-01" : ["Raiden Shogun",  "Sucrose",  "Kujou Sara",  "Xiangling"], 
-"Drifting Luminescence 2021-09-21" : ["Kokomi",  "Xingqiu",  "Beidou",  "Rosaria"],
+"Drifting Luminescence 2021-09-21" : ["Sangonomiya Kokomi",  "Xingqiu",  "Beidou",  "Rosaria"],
 };
 
 var appendData = function(field, datamap, append=false) {
+	console.log("Setting " + field);
 	for (var i in datamap) {
 		for (var j in datamap[i]) {
 			console.log(datamap[i][j]);
@@ -175,9 +198,23 @@ var appendData = function(field, datamap, append=false) {
 	}
 };
 
+var setOrder = function(field, order) {
+	for (var i in order) {
+		for (var c in characters) {
+			if (characters[c][field] == order[i]) 
+				characters[c][field] = String(i).padStart(3, '0')+"|"+order[i];
+		}
+	}
+};
+
 appendData("bossdrop", bossDrops);
 appendData("specialty", specialities);
+appendData("weekly", weeklyBossDrops);
 appendData("banners", banners, true);
+setOrder("talentbook", ["Freedom", "Resistance", "Ballad", "Prosperity", "Diligence", "Gold", "Transience", "Elegance", "Light"]);
+setOrder("element", ["Geo", "Anemo", "Cryo", "Electro", "Hydro", "Pyro", "Dendro"]);
+setOrder("height", ["Small", "Medium", "Tall"]);
+
 
 Character.prototype.render = function() {
 	var card = $('<div class="card"></div>');
@@ -240,6 +277,7 @@ var addSortCss = function(obj, sorting, item) {
 	var backgroundImage = "";
 	var backgroundMap = {
 		'bossdrop': 'Item_',
+		'weekly': 'Item_',
 		'specialty': 'Item_',
 		'talentbook': 'Item_Guide_to_',
 		'weapon': 'Weapon_',
@@ -281,13 +319,13 @@ var MakeGrid = function() {
 	for (var j in cols)
 	{
 		var col = cols[j];
-		header.append(addSortCss($("<th>"+col+"</th>"), model.previousSort, col));
+		header.append(addSortCss($("<th>"+col.replace(/.*\|/, "")+"</th>"), model.previousSort, col.replace(/.*\|/, "")));
 	}
 	tbody.append(header);
 	for (var i in rows) {
 		var row = rows[i];
 		var rowelem = $("<tr>").append(
-		addSortCss($("<th>"+row+"</th>"), model.currentSort, row.replace(/ /g, "_")));
+		addSortCss($("<th>"+row.replace(/.*\|/, "")+"</th>"), model.currentSort, row.replace(/ /g, "_").replace(/.*\|/, "")));
 		for (var j in cols) {
 			var col = cols[j];
 			var cell = $("<td></td>");
@@ -487,7 +525,7 @@ $(document).ready(function(){
 
 
 
-th.weapon, th.region, th.element, th.talentbook, th.specialty, th.bossdrop {
+th.weapon, th.region, th.element, th.talentbook, th.specialty, th.bossdrop, th.weekly {
 	background-size: contain;
     background-repeat: no-repeat;
 	height: 70px;
