@@ -90,7 +90,7 @@ var characters = [
 	 new Character("Kamisato Ayato|Ayato",       "5", "Hydro", "Tall", "Male", "Sword", "Inazuma", "v2.6", "Elegance"), 
 	 new Character("Yelan",       "5", "Hydro", "Tall", "Female", "Bow", "Liyue", "v2.7", "Prosperity"), 
 	 new Character("Kuki Shinobu|Shinobu","4", "Electro", "Medium", "Female", "Sword", "Inazuma", "v2.7", "Elegance"), 
-	 new Character("Shikanoin Heizou|Heizou","4", "Anemo", "Medium", "Male", "Catalyst", "Inazuma", "v2.7", "Transience"), 
+	 new Character("Shikanoin Heizou|Heizou","4", "Anemo", "Medium", "Male", "Catalyst", "Inazuma", "v2.8", "Transience"), 
 ];
 
 var bossDrops = {
@@ -207,6 +207,8 @@ var setOrder = function(field, order) {
 	}
 };
 
+var display = function(text) { return text.replace(/.*\|/, ""); };
+
 appendData("bossdrop", bossDrops);
 appendData("specialty", specialities);
 appendData("weekly", weeklyBossDrops);
@@ -221,9 +223,9 @@ Character.prototype.render = function() {
 	card.addClass("rarity-" + this.rarity);
 	var face = $('<div class="face"></div>');
 	face.css('background-image', "url('images/thumbs/Character_"+this.name.replace(/ /g, "_")+"_Thumb.png')");
-	var element = $('<div class="element"></div>').addClass(this.element).css('background-image', "url('images/Element_"+this.element+".png')");
-	var weapon = $('<div class="weapon"></div>').addClass(this.weapon);
-	var region = $('<div class="region"></div>').addClass(this.region);
+	var element = $('<div class="element"></div>').addClass(display(this.element)).css('background-image', "url('images/Element_"+display(this.element)+".png')");
+	var weapon = $('<div class="weapon"></div>').addClass(display(this.weapon));
+	var region = $('<div class="region"></div>').addClass(display(this.region));
 	card.append(face).append(element);//.append(region);
 	card.append($('<div class="name"><div>'+this.displayname+'</div></div>'));
 	return card;
@@ -319,13 +321,13 @@ var MakeGrid = function() {
 	for (var j in cols)
 	{
 		var col = cols[j];
-		header.append(addSortCss($("<th>"+col.replace(/.*\|/, "")+"</th>"), model.previousSort, col.replace(/.*\|/, "")));
+		header.append(addSortCss($("<th>"+display(col)+"</th>"), model.previousSort, display(col)));
 	}
 	tbody.append(header);
 	for (var i in rows) {
 		var row = rows[i];
 		var rowelem = $("<tr>").append(
-		addSortCss($("<th>"+row.replace(/.*\|/, "")+"</th>"), model.currentSort, row.replace(/ /g, "_").replace(/.*\|/, "")));
+		addSortCss($("<th>"+display(row)+"</th>"), model.currentSort, display(row.replace(/ /g, "_"))));
 		for (var j in cols) {
 			var col = cols[j];
 			var cell = $("<td></td>");
