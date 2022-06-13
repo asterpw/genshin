@@ -190,6 +190,8 @@ var appendData = function(field, datamap, append=false) {
 		for (var j in datamap[i]) {
 			console.log(datamap[i][j]);
 			var character = characters.find( c => c.name == datamap[i][j]);
+			if (!character) 
+				continue;
 			if (!append)
 				character[field] = i;
 			else
@@ -223,7 +225,9 @@ Character.prototype.render = function() {
 	card.addClass("rarity-" + this.rarity);
 	var face = $('<div class="face"></div>');
 	face.css('background-image', "url('images/thumbs/Character_"+this.name.replace(/ /g, "_")+"_Thumb.png')");
-	var element = $('<div class="element"></div>').addClass(display(this.element)).css('background-image', "url('images/Element_"+display(this.element)+".png')");
+	var element = $('<div>').addClass('element').addClass(display(this.element)).css('background-image', 
+	"url(images/Element_" + display(this.element) + ".png)");
+	console.log(this.name + "  " + "url(images/Element_" + display(this.element) + ".png)");
 	var weapon = $('<div class="weapon"></div>').addClass(display(this.weapon));
 	var region = $('<div class="region"></div>').addClass(display(this.region));
 	card.append(face).append(element);//.append(region);
@@ -235,6 +239,7 @@ Character.prototype.render = function() {
 var Update = function() {
 	if (!MakeGrid())
 		Reposition();
+	
 };
 
 
@@ -263,7 +268,6 @@ var Reposition = function() {
 		$(this).css("left", $(this).data("copy")[0].getBoundingClientRect().left);
 		$(this).css("top", $(this).data("copy")[0].getBoundingClientRect().top);
 	});
-	
 };
 
 
@@ -415,12 +419,12 @@ var Init = function() {
 		$("#content").append(card);
 		
 	}
-	
 };
 
 $(document).ready(function(){
 	Init();
 	Update();
+	ScaleCards(1);
 	$(window).on('resize', Reposition);
 });
 
