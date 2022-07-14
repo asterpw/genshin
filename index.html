@@ -22,21 +22,7 @@ var Character = function(name, rarity, element, height, sex, weapon, region, rel
 	this.banners = [];
 }
 
-var qualities = [
-	["name", []],
-	["height", ["Short", "Medium", "Tall"]],
-	["element", ["Geo", "Anemo", "Cryo", "Electro", "Pyro", "Hydro", "Dendro"]],
-	["sex", ["Male", "Female"]],
-	["rarity", ["4", "5"]],
-	["height", ["Short", "Medium", "Tall"]],
-	["weapon", ["Sword", "Claymore", "Bow", "Catalyst", "Polearm"]],
-	["region", ["Liyue", "Mondstadt", "Inazuma", "Outlander"]],
-	["release", []],
-	["talentbook", []],
-	["specialty", []],
-	["bossdrop", []],
-	["weekly", []],
-];
+var qualities = ["name", "height", "element", "sex", "rarity", "height", "weapon", "region", "release", "talentbook", "specialty", "bossdrop", "weekly"];
 
 var characters = [
 	 new Character("Aether",  "5", "Geo", "Medium", "Male", "Sword", "Outlander", "v1.0", "Freedom"), 
@@ -91,6 +77,25 @@ var characters = [
 	 new Character("Yelan",       "5", "Hydro", "Tall", "Female", "Bow", "Liyue", "v2.7", "Prosperity"), 
 	 new Character("Kuki Shinobu|Shinobu","4", "Electro", "Medium", "Female", "Sword", "Inazuma", "v2.7", "Elegance"), 
 	 new Character("Shikanoin Heizou|Heizou","4", "Anemo", "Medium", "Male", "Catalyst", "Inazuma", "v2.8", "Transience"), 
+	 new Character("Tighnari","5", "Dendro", "Medium", "Male", "Bow", "Sumeru", "v3.0", "T"), 
+	 new Character("Collei","4", "Dendro", "Medium", "Female", "Bow", "Sumeru", "v3.0", "C"), 
+	 new Character("Dori","4", "Electro", "Small", "Female", "Claymore", "Sumeru", "v3.0", "D"), 
+	 /*new Character("Nilou","5", "Hydro", "Medium", "Female", "Sword", "Sumeru", "v3.1", ""), 
+	 new Character("Dehya","4", "Pyro", "Medium", "Female", "Claymore", "Sumeru", "v3.1", ""), 
+	 new Character("Candace","4", "Hydro", "Tall", "Female", "Polearm", "Sumeru", "v3.1", ""), 
+	 new Character("Al Haytham","5", "Dendro", "Tall", "Male", "Sword", "Sumeru", "v3.X", ""), 
+	 new Character("Kusanali","5", "Dendro", "Medium", "Female", "Catalyst", "Sumeru", "v3.X", ""), 
+	 new Character("Cyno","5", "Electro", "Medium", "Male", "Polearm", "Sumeru", "v3.X", ""), 
+	 new Character("Layla","4", "Cryo", "Medium", "Female", "Sword", "Sumeru", "v3.X", ""), 
+	 new Character("Faruzan","4", "Anemo", "Medium", "Female", "Bow", "Sumeru", "v3.X", ""), 
+	 new Character("Scaramouche","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), /*
+	 new Character("Nafs","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
+	 new Character("Ikhfa","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
+	 new Character("Djajeet","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
+	 new Character("Soutine","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""),*/
+	 
+	 
+	 
 ];
 
 var bossDrops = {
@@ -110,6 +115,8 @@ var bossDrops = {
 "Riftborn Regalia": ["Arataki Itto", "Yun Jin"],
 "Dragonheir's False Fin": ["Shenhe", "Yae Miko"],
 "Runic Fang": ["Yelan", "Kuki Shinobu", "Shikanoin Heizou"],
+"Majestic Hooked Beak": ["Collei", "Tighnari"],
+"Thunderclap Fruitcore": ["Dori"]
 };
 
 var weeklyBossDrops = {
@@ -122,44 +129,47 @@ var weeklyBossDrops = {
 "06|Tusk of Monoceros Caeli": ["Albedo", "Xinyan", "Zhongli"],  
 "07|Shard of a Foul Legacy": ["Diona", "Hu Tao", "Tartaglia"],  
 "08|Shadow of the Warrior": ["Ganyu", "Rosaria", "Xiao"],  
-"09|Dragon Lord's Crown": ["Aether", "Eula", "Yoimiya"],  
-"10|Bloodjade Branch": ["Kamisato Ayaka", "Yanfei"],  
+"09|Dragon Lord's Crown": ["Eula", "Yoimiya"],  
+"10|Bloodjade Branch": ["Kamisato Ayaka", "Yanfei", "Dori"],  
 "11|Gilded Scale": ["Kaedehara Kazuha", "Sayu", "Yelan"],  
 "12|Molten Moment": ["Aloy", "Gorou", "Raiden Shogun"],  
 "13|Hellfire Butterfly": ["Sangonomiya Kokomi", "Shenhe", "Thoma"],  
 "14|Ashen Heart": ["Arataki Itto", "Kujou Sara", "Yun Jin"],  
 "15|Mudra of the Malefic General": ["Kamisato Ayato"],  
-"16|Tears of the Calamitous God": ["Kuki Shinobu"],
-"17|The Meaning of Aeons": ["Yae Miko", "Shikanoin Heizou"],  
+"16|Tears of the Calamitous God": ["Kuki Shinobu", "Collei"],
+"17|The Meaning of Aeons": ["Yae Miko", "Shikanoin Heizou", "Tighnari"],  
 };
 
 
 var specialities = {
-"Calla Lily": ["Diona", "Kaeya"],
-"Wolfhook": ["Razor"],
-"Valberry": ["Lisa", "Noelle", "Rosaria"],
-"Cecilia": ["Albedo", "Venti"],
-"Windwheel Aster": ["Aether", "Lumine", "Bennett", "Sucrose"],
-"Philanemo Mushroom": ["Klee", "Mona", "Barbara"],
-"Small Lamp Grass": ["Diluc", "Amber", "Fischl"],
-"Dandelion Seed": ["Eula", "Jean"],
-"Jueyun Chili": ["Xiangling"],
-"Noctilucous Jade": ["Beidou", "Yanfei"],
-"Silk Flower": ["Hu Tao", "Xingqiu"],
-"Glaze Lily": ["Ningguang", "Yun Jin"],
-"Qingxin": ["Ganyu", "Xiao", "Shenhe"],
-"Starconch": ["Tartaglia", "Yelan"],
-"Violetgrass": ["Qiqi", "Xinyan"],
-"Cor Lapis": ["Keqing", "Zhongli", "Chongyun"],
-"Onikabuto": ["Arataki Itto", "Shikanoin Heizou"],
-"Sakura Bloom": ["Kamisato Ayaka", "Kamisato Ayato"],
-"Crystal Marrow": ["Aloy", "Sayu"],
-"Dendrobium": ["Kujou Sara"],
-"Naku Weed": ["Yoimiya", "Kuki Shinobu"],
-"Sea Ganoderma": ["Kaedehara Kazuha", "Yae Miko"],
-"Sango Pearl": ["Sangonomiya Kokomi", "Gorou"],
-"Amakumo Fruit": ["Raiden Shogun"],
-"Fluorescent Fungus": ["Thoma"]
+"0|Calla Lily": ["Diona", "Kaeya"],
+"0|Wolfhook": ["Razor"],
+"0|Valberry": ["Lisa", "Noelle", "Rosaria"],
+"0|Cecilia": ["Albedo", "Venti"],
+"0|Windwheel Aster": ["Aether", "Lumine", "Bennett", "Sucrose"],
+"0|Philanemo Mushroom": ["Klee", "Mona", "Barbara"],
+"0|Small Lamp Grass": ["Diluc", "Amber", "Fischl"],
+"0|Dandelion Seed": ["Eula", "Jean"],
+"1|Jueyun Chili": ["Xiangling"],
+"1|Noctilucous Jade": ["Beidou", "Yanfei"],
+"1|Silk Flower": ["Hu Tao", "Xingqiu"],
+"1|Glaze Lily": ["Ningguang", "Yun Jin"],
+"1|Qingxin": ["Ganyu", "Xiao", "Shenhe"],
+"1|Starconch": ["Tartaglia", "Yelan"],
+"1|Violetgrass": ["Qiqi", "Xinyan"],
+"1|Cor Lapis": ["Keqing", "Zhongli", "Chongyun"],
+"2|Onikabuto": ["Arataki Itto", "Shikanoin Heizou"],
+"2|Sakura Bloom": ["Kamisato Ayaka", "Kamisato Ayato"],
+"2|Crystal Marrow": ["Aloy", "Sayu"],
+"2|Dendrobium": ["Kujou Sara"],
+"2|Naku Weed": ["Yoimiya", "Kuki Shinobu"],
+"2|Sea Ganoderma": ["Kaedehara Kazuha", "Yae Miko"],
+"2|Sango Pearl": ["Sangonomiya Kokomi", "Gorou"],
+"2|Amakumo Fruit": ["Raiden Shogun"],
+"2|Fluorescent Fungus": ["Thoma"],
+"3|Rukkhashava Mushrooms": ["Collei"],
+"3|Lunar Lotus": ["Tighnari"],
+"4|Kalpalata": ["Dori"]
 };
 
 var banners =  {
@@ -237,9 +247,9 @@ Character.prototype.render = function() {
 };
 
 var Update = function() {
-	if (!MakeGrid())
+	if (!MakeGrid()) 
 		Reposition();
-	
+	AutoScale();
 };
 
 
@@ -259,18 +269,6 @@ var Randomize = function() {
 	Update();
 }
 
-var Reposition = function() {
-	if (!model.grid) {
-		$("#content").append($(".sortTable .card.invisible").detach());
-		$(".sortTable").remove();
-	}
-	$(".card.real").each(function(){
-		$(this).css("left", $(this).data("copy")[0].getBoundingClientRect().left);
-		$(this).css("top", $(this).data("copy")[0].getBoundingClientRect().top);
-	});
-};
-
-
 var model = {
 	currentSort: "element",
 	currentSortPolarity: 1,
@@ -278,6 +276,55 @@ var model = {
 	previousSortPolarity: 1,
 	grid: true
 };
+
+var Reposition = function() {
+	if (!model.grid) {
+		$("#content").append($(".sortTable .card.invisible").detach());
+		$(".sortTable").remove();
+	}
+	$(".card.real").each(function(){
+		$(this).css("left", $(this).data("copy").position().left);
+		$(this).css("top", $(this).data("copy").position().top);
+		$(this).css("margin", $(this).data("copy").css("margin"));
+	});
+};
+
+var AutoScale = function() {
+	return;
+	if (model.grid) {
+		while(($(".sortTable").position().top + $(".sortTable").height() > $(window).scrollTop() + $(window).height()) ||
+			($(".sortTable").position().left + $(".sortTable").width() > $(window).scrollLeft() + $(window).width() )) {
+			if ($("#zoomSlider").val() > 1) {
+				$("#zoomSlider").val(parseInt($("#zoomSlider").val()) - 1);
+				console.log($("#zoomSlider").val());
+				ZoomHandler();
+			} else
+			return;
+		}
+		
+		while(($(".sortTable").position().top + $(".sortTable").height() < $(window).scrollTop() + $(window).height()) ||
+			($(".sortTable").position().left + $(".sortTable").width() < $(window).scrollLeft() + $(window).width() )) {
+			if ($("#zoomSlider").val() < 100) {
+				$("#zoomSlider").val(parseInt($("#zoomSlider").val()) + 1);
+				console.log($("#zoomSlider").val());
+				ZoomHandler();
+			} else
+			return;
+		}
+	}
+};
+
+var ScaleCards = function(scale) {
+	$(".card.invisible").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px").css("margin", (10 * scale)+"px");
+	var trans = ((scale - 1) * 50) + "%";
+	$(".card.real").css("transform", "translateX("+trans+") translateY("+trans+") scale("+scale+") ").css("margin", (10 * scale)+"px");
+	//$(".card.real").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px");
+	Reposition();
+	$("#dynamicStyle").html(".card:hover {transform: translateX("+trans+") translateY("+trans+") scale("+1.07*scale+") !important;}");
+};
+
+
+
 
 var addSortCss = function(obj, sorting, item) {
 	var backgroundImage = "";
@@ -352,13 +399,15 @@ var MakeGrid = function() {
 	return true;
 };
 
+var ZoomHandler = function() {
+		var zoom = Math.pow(2, ($("#zoomSlider").val() - 50) / 40);
+		ScaleCards(zoom);
+};
+
 var ZoomSlider = function(){
 
 	var slider = $('<input type="range" min="1" max="100" value="50" class="slider" id="zoomSlider">');
-	slider.on('input', function() {
-		var zoom = Math.pow(2, ($(this).val() - 50) / 40);
-		ScaleCards(zoom);
-	});
+	slider.on('input', ZoomHandler);
 	$("#sorts").append(slider);
 };
 
@@ -373,20 +422,12 @@ var GridMode = function() {
 };
 
 
-var ScaleCards = function(scale) {
-	$(".card.invisible").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px").css("margin", (10 * scale)+"px");
-	var trans = ((scale - 1) * 50) + "%";
-	$(".card.real").css("transform", "translateX("+trans+") translateY("+trans+") scale("+scale+") ");
-	//$(".card.real").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px");
-	Reposition();
-	$("#dynamicStyle").html(".card:hover {transform: translateX("+trans+") translateY("+trans+") scale("+1.07*scale+") !important;}");
-};
 
 
 var Init = function() {
 	for (var quality in qualities) {
-		var sorter = $("<div>"+qualities[quality][0]+"</div>").addClass("sorter");
-		sorter.data("sort", qualities[quality][0]);
+		var sorter = $("<div>"+qualities[quality]+"</div>").addClass("sorter");
+		sorter.data("sort", qualities[quality]);
 		sorter.click(function(){		
 			var prop = $(this).data("sort");
 			if (prop == model.currentSort) {
@@ -413,7 +454,9 @@ var Init = function() {
 		var card = characters[i].render();
 		var cardCopy = card.clone().addClass("invisible");
 		cardCopy.data("character", characters[i]);
+		cardCopy.attr("id", characters[i].displayname+"Inv");
 		card.addClass("real");
+		card.attr("id", characters[i].displayname+"Real");
 		card.data("copy", cardCopy)
 		$("#content").append(cardCopy);
 		$("#content").append(card);
@@ -425,7 +468,10 @@ $(document).ready(function(){
 	Init();
 	Update();
 	ScaleCards(1);
-	$(window).on('resize', Reposition);
+	//$(window).on('resize', Reposition);
+	$(window).resize(Reposition).trigger('resize');
+	//$(window).on('scroll', Reposition); 
+
 });
 
 
@@ -479,7 +525,7 @@ $(document).ready(function(){
 
 .card.invisible {
 	position: relative;
-	opacity: 0;
+	opacity: 0.2;
 }
 
 .card.real { 
