@@ -20,12 +20,14 @@ var Character = function(name, rarity, element, height, sex, weapon, region, rel
 	this.specialty = "";
 	this.weekly = "";
 	this.banners = [];
+	this.outfits = [];
 }
 
 var qualities = ["name", "height", "element", "sex", "rarity", "height", "weapon", "region", "release", "talentbook", "specialty", "bossdrop", "weekly"];
 
 var characters = [
 	 new Character("Aether",  "5", "Geo", "Medium", "Male", "Sword", "Outlander", "v1.0", "Freedom"), 
+	 new Character("Aether",  "5", "Electro", "Medium", "Male", "Sword", "Outlander", "v1.0", "Light"), 
 	 new Character("Albedo",  "5", "Geo", "Medium", "Male", "Sword", "Mondstadt", "v1.2", "Ballad"), 
 	 new Character("Aloy",    "5a", "Cryo", "Medium", "Female", "Bow", "Outlander", "v2.1", "Freedom"), 
 	 new Character("Amber",   "4", "Pyro", "Medium", "Female", "Bow", "Mondstadt", "v1.0", "Freedom"), 
@@ -49,6 +51,7 @@ var characters = [
 	 new Character("Kujou Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma", "v2.1", "Elegance"), 
 	 new Character("Lisa",       "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Lumine",     "5", "Anemo", "Medium", "Female", "Sword", "Outlander", "v1.0", "Freedom"), 
+	 new Character("Lumine",     "5", "Dendro", "Medium", "Female", "Sword", "Outlander", "v1.0", "Praxis"), 
 	 new Character("Mona",       "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Ningguang",  "4", "Geo", "Tall", "Female", "Catalyst", "Liyue", "v1.0", "Prosperity"), 
 	 new Character("Noelle",     "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
@@ -77,18 +80,19 @@ var characters = [
 	 new Character("Yelan",       "5", "Hydro", "Tall", "Female", "Bow", "Liyue", "v2.7", "Prosperity"), 
 	 new Character("Kuki Shinobu|Shinobu","4", "Electro", "Medium", "Female", "Sword", "Inazuma", "v2.7", "Elegance"), 
 	 new Character("Shikanoin Heizou|Heizou","4", "Anemo", "Medium", "Male", "Catalyst", "Inazuma", "v2.8", "Transience"), 
-	 new Character("Tighnari","5", "Dendro", "Medium", "Male", "Bow", "Sumeru", "v3.0", "T"), 
-	 new Character("Collei","4", "Dendro", "Medium", "Female", "Bow", "Sumeru", "v3.0", "C"), 
-	 new Character("Dori","4", "Electro", "Small", "Female", "Claymore", "Sumeru", "v3.0", "D"), 
-	 /*new Character("Nilou","5", "Hydro", "Medium", "Female", "Sword", "Sumeru", "v3.1", ""), 
-	 new Character("Dehya","4", "Pyro", "Medium", "Female", "Claymore", "Sumeru", "v3.1", ""), 
-	 new Character("Candace","4", "Hydro", "Tall", "Female", "Polearm", "Sumeru", "v3.1", ""), 
+	 new Character("Tighnari","5", "Dendro", "Medium", "Male", "Bow", "Sumeru", "v3.0", "Admonition"), 
+	 new Character("Collei","4", "Dendro", "Medium", "Female", "Bow", "Sumeru", "v3.0", "Praxis"), 
+	 new Character("Dori","4", "Electro", "Small", "Female", "Claymore", "Sumeru", "v3.0", "Ingenuity"), 
+	 new Character("Nilou","5", "Hydro", "Medium", "Female", "Sword", "Sumeru", "v3.1", "Praxis"), 
+	 new Character("Cyno","5", "Electro", "Medium", "Male", "Polearm", "Sumeru", "v3.1", "Admonition"), 
+	 new Character("Candace","4", "Hydro", "Tall", "Female", "Polearm", "Sumeru", "v3.1", "Admonition"), 
+	 new Character("Nahida","5", "Dendro", "Small", "Female", "Catalyst", "Sumeru", "v3.2", "Ingenuity"), 
+	 new Character("Layla","4", "Cryo", "Medium", "Female", "Sword", "Sumeru", "v3.2", "Ingenuity"), 
+	 new Character("Faruzan","4", "Anemo", "Medium", "Female", "Bow", "Sumeru", "v3.3", "Admonition"), 
+	 new Character("Wanderer","5", "Anemo", "Medium", "Male", "Catalyst", "Sumeru", "v3.3", "Praxis"),
+	 /*new Character("Dehya","4", "Pyro", "Medium", "Female", "Claymore", "Sumeru", "v3.1", ""), 
 	 new Character("Al Haytham","5", "Dendro", "Tall", "Male", "Sword", "Sumeru", "v3.X", ""), 
-	 new Character("Kusanali","5", "Dendro", "Medium", "Female", "Catalyst", "Sumeru", "v3.X", ""), 
-	 new Character("Cyno","5", "Electro", "Medium", "Male", "Polearm", "Sumeru", "v3.X", ""), 
-	 new Character("Layla","4", "Cryo", "Medium", "Female", "Sword", "Sumeru", "v3.X", ""), 
-	 new Character("Faruzan","4", "Anemo", "Medium", "Female", "Bow", "Sumeru", "v3.X", ""), 
-	 new Character("Scaramouche","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), /*
+	  
 	 new Character("Nafs","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
 	 new Character("Ikhfa","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
 	 new Character("Djajeet","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
@@ -97,6 +101,8 @@ var characters = [
 	 
 	 
 ];
+
+
 
 var bossDrops = {
 "Hurricane Seed": ["Jean", "Venti", "Sucrose"],
@@ -116,7 +122,10 @@ var bossDrops = {
 "Dragonheir's False Fin": ["Shenhe", "Yae Miko"],
 "Runic Fang": ["Yelan", "Kuki Shinobu", "Shikanoin Heizou"],
 "Majestic Hooked Beak": ["Collei", "Tighnari"],
-"Thunderclap Fruitcore": ["Dori"]
+"Thunderclap Fruitcore": ["Dori", "Cyno"],
+"Quelled Creeper": ["Nahida"],
+"Light Guiding Tetrahedron": ["Candace", "Faruzan"],
+"Perpetual Caliber": ["Nilou", "Layla", "Wanderer"],
 };
 
 var weeklyBossDrops = {
@@ -135,9 +144,12 @@ var weeklyBossDrops = {
 "12|Molten Moment": ["Aloy", "Gorou", "Raiden Shogun"],  
 "13|Hellfire Butterfly": ["Sangonomiya Kokomi", "Shenhe", "Thoma"],  
 "14|Ashen Heart": ["Arataki Itto", "Kujou Sara", "Yun Jin"],  
-"15|Mudra of the Malefic General": ["Kamisato Ayato"],  
-"16|Tears of the Calamitous God": ["Kuki Shinobu", "Collei"],
+"15|Mudra of the Malefic General": ["Kamisato Ayato", "Cyno"],  
+"16|Tears of the Calamitous God": ["Kuki Shinobu", "Collei", "Candace", "Nilou"],
 "17|The Meaning of Aeons": ["Yae Miko", "Shikanoin Heizou", "Tighnari"],  
+"18|Puppet Strings": ["Nahida", "Faruzan"],  
+"19|Mirror of Mushin": ["Layla"],
+"20|Daka's Bell": ["Wanderer"],  
 };
 
 
@@ -167,9 +179,12 @@ var specialities = {
 "2|Sango Pearl": ["Sangonomiya Kokomi", "Gorou"],
 "2|Amakumo Fruit": ["Raiden Shogun"],
 "2|Fluorescent Fungus": ["Thoma"],
-"3|Rukkhashava Mushrooms": ["Collei"],
-"3|Lunar Lotus": ["Tighnari"],
-"4|Kalpalata": ["Dori"]
+"3|Rukkhashava Mushrooms": ["Collei", "Wanderer"],
+"3|Nilotpala Lotus": ["Tighnari", "Layla"],
+"3|Kalpalata Lotus": ["Dori", "Nahida"],
+"3|Henna Berry": ["Candace", "Faruzan"],
+"3|Padisarah": ["Nilou"],
+"3|Scarab": ["Cyno"],
 };
 
 var banners =  {
@@ -192,6 +207,19 @@ var banners =  {
 "Tapestry of Golden Flames 2021-08-10" : ["Yoimiya",  "Diona",  "Xinyan",  "Sayu"], 
 "Reign of Serenity 2021-09-01" : ["Raiden Shogun",  "Sucrose",  "Kujou Sara",  "Xiangling"], 
 "Drifting Luminescence 2021-09-21" : ["Sangonomiya Kokomi",  "Xingqiu",  "Beidou",  "Rosaria"],
+};
+
+var outfits = {
+"100% Outrider" : ["Amber"],
+"Ein Immernachtstraum" : ["Fischl"],
+"Gunnhildr's_Legacy" : ["Jean"],
+"Opulent Splendor" : ["Keqing"],
+"Orchid's Evening Gown" : ["Ningguang"],
+"Pact of Stars and Moon" : ["Mona"],
+"Red Dead of Night" : ["Diluc"],
+"Sea Breeze Dandelion" : ["Jean"],
+"Summertime Sparkle" : ["Barbara"],
+"To the Church's Free Spirit" : ["Rosaria"],
 };
 
 var appendData = function(field, datamap, append=false) {
@@ -224,8 +252,9 @@ var display = function(text) { return text.replace(/.*\|/, ""); };
 appendData("bossdrop", bossDrops);
 appendData("specialty", specialities);
 appendData("weekly", weeklyBossDrops);
+appendData("outfits", outfits, true);
 appendData("banners", banners, true);
-setOrder("talentbook", ["Freedom", "Resistance", "Ballad", "Prosperity", "Diligence", "Gold", "Transience", "Elegance", "Light"]);
+setOrder("talentbook", ["Freedom", "Resistance", "Ballad", "Prosperity", "Diligence", "Gold", "Transience", "Elegance", "Light", "Admonition", "Ingenuity", "Praxis"]);
 setOrder("element", ["Geo", "Anemo", "Cryo", "Electro", "Hydro", "Pyro", "Dendro"]);
 setOrder("height", ["Small", "Medium", "Tall"]);
 
@@ -421,7 +450,16 @@ var GridMode = function() {
 	$("#sorts").append(gridButton);
 };
 
-
+var CardClick = function() {
+	var character = $(this).data("character")
+	var cardOutfits = character.outfits;
+	if (cardOutfits.length > 0) {
+		var outfit = ($(this).data("outfit") + 1) % (cardOutfits.length + 1);
+		$(this).data("outfit", outfit);
+		var image = outfit == 0 ? "Character_"+character.name : "Outfit_"+cardOutfits[outfit - 1];
+		$(this).find(".face").css('background-image', "url('images/thumbs/"+image.replace(/ /g, "_").replace(/'/g, "%27") +"_Thumb.png')")
+	}
+};
 
 
 var Init = function() {
@@ -453,11 +491,14 @@ var Init = function() {
 	for (var i in characters) {
 		var card = characters[i].render();
 		var cardCopy = card.clone().addClass("invisible");
+		card.data("character", characters[i]);
+		card.data("outfit", 0);
 		cardCopy.data("character", characters[i]);
 		cardCopy.attr("id", characters[i].displayname+"Inv");
 		card.addClass("real");
 		card.attr("id", characters[i].displayname+"Real");
 		card.data("copy", cardCopy)
+		card.click(CardClick);
 		$("#content").append(cardCopy);
 		$("#content").append(card);
 		
