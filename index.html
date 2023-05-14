@@ -27,7 +27,7 @@ var qualities = ["name", "height", "element", "sex", "rarity", "height", "weapon
 
 var characters = [
 	 new Character("Aether",  "5", "Geo", "Medium", "Male", "Sword", "Outlander", "v1.0", "Freedom"), 
-	 new Character("Aether",  "5", "Electro", "Medium", "Male", "Sword", "Outlander", "v1.0", "Light"), 
+	 new Character("Aether",  "5", "Electro", "Medium", "Male", "Sword", "Outlander", "v2.0", "Light"), 
 	 new Character("Albedo",  "5", "Geo", "Medium", "Male", "Sword", "Mondstadt", "v1.2", "Ballad"), 
 	 new Character("Aloy",    "5a", "Cryo", "Medium", "Female", "Bow", "Outlander", "v2.1", "Freedom"), 
 	 new Character("Amber",   "4", "Pyro", "Medium", "Female", "Bow", "Mondstadt", "v1.0", "Freedom"), 
@@ -51,7 +51,7 @@ var characters = [
 	 new Character("Kujou Sara", "4", "Electro", "Tall", "Female", "Bow", "Inazuma", "v2.1", "Elegance"), 
 	 new Character("Lisa",       "4", "Electro", "Tall", "Female", "Catalyst", "Mondstadt", "v1.0", "Ballad"), 
 	 new Character("Lumine",     "5", "Anemo", "Medium", "Female", "Sword", "Outlander", "v1.0", "Freedom"), 
-	 new Character("Lumine",     "5", "Dendro", "Medium", "Female", "Sword", "Outlander", "v1.0", "Praxis"), 
+	 new Character("Lumine",     "5", "Dendro", "Medium", "Female", "Sword", "Outlander", "v3.0", "Praxis"), 
 	 new Character("Mona",       "5", "Hydro", "Medium", "Female", "Catalyst", "Mondstadt", "v1.0", "Resistance"), 
 	 new Character("Ningguang",  "4", "Geo", "Tall", "Female", "Catalyst", "Liyue", "v1.0", "Prosperity"), 
 	 new Character("Noelle",     "4", "Geo", "Medium", "Female", "Claymore", "Mondstadt", "v1.0", "Resistance"), 
@@ -90,13 +90,18 @@ var characters = [
 	 new Character("Layla","4", "Cryo", "Medium", "Female", "Sword", "Sumeru", "v3.2", "Ingenuity"), 
 	 new Character("Faruzan","4", "Anemo", "Medium", "Female", "Bow", "Sumeru", "v3.3", "Admonition"), 
 	 new Character("Wanderer","5", "Anemo", "Medium", "Male", "Catalyst", "Sumeru", "v3.3", "Praxis"),
-	 /*new Character("Dehya","4", "Pyro", "Medium", "Female", "Claymore", "Sumeru", "v3.1", ""), 
-	 new Character("Al Haytham","5", "Dendro", "Tall", "Male", "Sword", "Sumeru", "v3.X", ""), 
-	  
-	 new Character("Nafs","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
+	 new Character("Alhaitham","5", "Dendro", "Tall", "Male", "Sword", "Sumeru", "v3.4", "Ingenuity"), 
+	 new Character("Yaoyao","4", "Dendro", "Small", "Female", "Polearm", "Liyue", "v3.4", "Diligence"), 
+	 new Character("Dehya","5", "Pyro", "Tall", "Female", "Claymore", "Sumeru", "v3.5", "Praxis"), 
+	 new Character("Mika","4", "Cryo", "Medium", "Male", "Polearm", "Mondstadt", "v3.5", "Ballad"), 
+	 
+	 new Character("Kaveh","4", "Dendro", "Tall", "Male", "Claymore", "Sumeru", "v3.6", "Ingenuity"), 
+	 new Character("Baizhu","5", "Dendro", "Tall", "Male", "Catalyst", "Liyue", "v3.6", "Gold"), 
+	 new Character("Kirara","4", "Dendro", "Medium", "Female", "Sword", "Inazuma", "v3.7", "Transience"), 
+	 /*new Character("Nafs","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
 	 new Character("Ikhfa","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
 	 new Character("Djajeet","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""), 
-	 new Character("Soutine","5", "Electro", "Medium", "Male", "Catalyst", "Sumeru", "v3.X", ""),*/
+	 new Character("Soutine","5", "Hydro", "Medium", "Female", "Claymore", "Fontaine", "v3.X", ""),*/
 	 
 	 
 	 
@@ -123,9 +128,11 @@ var bossDrops = {
 "Runic Fang": ["Yelan", "Kuki Shinobu", "Shikanoin Heizou"],
 "Majestic Hooked Beak": ["Collei", "Tighnari"],
 "Thunderclap Fruitcore": ["Dori", "Cyno"],
-"Quelled Creeper": ["Nahida"],
-"Light Guiding Tetrahedron": ["Candace", "Faruzan"],
+"Quelled Creeper": ["Nahida", "Yaoyao", "Kaveh"],
+"Light Guiding Tetrahedron": ["Candace", "Faruzan", "Dehya"],
 "Perpetual Caliber": ["Nilou", "Layla", "Wanderer"],
+"Pseudo-Stamens": ["Alhaitham", "Mika"],
+"Evergloom Ring": ["Baizhu", "Kirara"],
 };
 
 var weeklyBossDrops = {
@@ -147,28 +154,31 @@ var weeklyBossDrops = {
 "15|Mudra of the Malefic General": ["Kamisato Ayato", "Cyno"],  
 "16|Tears of the Calamitous God": ["Kuki Shinobu", "Collei", "Candace", "Nilou"],
 "17|The Meaning of Aeons": ["Yae Miko", "Shikanoin Heizou", "Tighnari"],  
-"18|Puppet Strings": ["Nahida", "Faruzan"],  
-"19|Mirror of Mushin": ["Layla"],
-"20|Daka's Bell": ["Wanderer"],  
+"18|Puppet Strings": ["Nahida", "Faruzan", "Dehya"],  
+"19|Mirror of Mushin": ["Layla", "Alhaitham", "Mika"],
+"20|Daka's Bell": ["Wanderer", "Yaoyao"],  
+"21|Worldspan Fern": ["Baizhu"],  
+"22|Primordial Greenbloom": ["Kaveh"],
+"23|Everamber": ["Kirara"],  
 };
 
 
 var specialities = {
 "0|Calla Lily": ["Diona", "Kaeya"],
-"0|Wolfhook": ["Razor"],
+"0|Wolfhook": ["Razor", "Mika"],
 "0|Valberry": ["Lisa", "Noelle", "Rosaria"],
 "0|Cecilia": ["Albedo", "Venti"],
 "0|Windwheel Aster": ["Aether", "Lumine", "Bennett", "Sucrose"],
 "0|Philanemo Mushroom": ["Klee", "Mona", "Barbara"],
 "0|Small Lamp Grass": ["Diluc", "Amber", "Fischl"],
 "0|Dandelion Seed": ["Eula", "Jean"],
-"1|Jueyun Chili": ["Xiangling"],
+"1|Jueyun Chili": ["Xiangling", "Yaoyao"],
 "1|Noctilucous Jade": ["Beidou", "Yanfei"],
 "1|Silk Flower": ["Hu Tao", "Xingqiu"],
 "1|Glaze Lily": ["Ningguang", "Yun Jin"],
 "1|Qingxin": ["Ganyu", "Xiao", "Shenhe"],
 "1|Starconch": ["Tartaglia", "Yelan"],
-"1|Violetgrass": ["Qiqi", "Xinyan"],
+"1|Violetgrass": ["Qiqi", "Xinyan", "Baizhu"],
 "1|Cor Lapis": ["Keqing", "Zhongli", "Chongyun"],
 "2|Onikabuto": ["Arataki Itto", "Shikanoin Heizou"],
 "2|Sakura Bloom": ["Kamisato Ayaka", "Kamisato Ayato"],
@@ -177,7 +187,7 @@ var specialities = {
 "2|Naku Weed": ["Yoimiya", "Kuki Shinobu"],
 "2|Sea Ganoderma": ["Kaedehara Kazuha", "Yae Miko"],
 "2|Sango Pearl": ["Sangonomiya Kokomi", "Gorou"],
-"2|Amakumo Fruit": ["Raiden Shogun"],
+"2|Amakumo Fruit": ["Raiden Shogun", "Kirara"],
 "2|Fluorescent Fungus": ["Thoma"],
 "3|Rukkhashava Mushrooms": ["Collei", "Wanderer"],
 "3|Nilotpala Lotus": ["Tighnari", "Layla"],
@@ -185,6 +195,8 @@ var specialities = {
 "3|Henna Berry": ["Candace", "Faruzan"],
 "3|Padisarah": ["Nilou"],
 "3|Scarab": ["Cyno"],
+"3|Sand Grease Pupa": ["Alhaitham", "Dehya"],
+"3|Mourning Flower": ["Kaveh"]
 };
 
 var banners =  {
@@ -210,16 +222,19 @@ var banners =  {
 };
 
 var outfits = {
-"100% Outrider" : ["Amber"],
-"Ein Immernachtstraum" : ["Fischl"],
 "Gunnhildr's_Legacy" : ["Jean"],
-"Opulent Splendor" : ["Keqing"],
-"Orchid's Evening Gown" : ["Ningguang"],
+"100% Outrider" : ["Amber"],
 "Pact of Stars and Moon" : ["Mona"],
-"Red Dead of Night" : ["Diluc"],
-"Sea Breeze Dandelion" : ["Jean"],
-"Summertime Sparkle" : ["Barbara"],
 "To the Church's Free Spirit" : ["Rosaria"],
+
+"Springbloom Missive": ["Kamisato Ayaka"],
+"Sea Breeze Dandelion" : ["Jean"],
+"A Sobriquet Under Shade" : ["Lisa"],
+"Summertime Sparkle" : ["Barbara"],
+"Red Dead of Night" : ["Diluc"],
+"Orchid's Evening Gown" : ["Ningguang"],
+"Ein Immernachtstraum" : ["Fischl"],
+"Opulent Splendor" : ["Keqing"],
 };
 
 var appendData = function(field, datamap, append=false) {
@@ -344,7 +359,8 @@ var AutoScale = function() {
 };
 
 var ScaleCards = function(scale) {
-	$(".card.invisible").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px").css("margin", (10 * scale)+"px");
+	var height = $("body").hasClass("compact") ? 100 : 125;
+	$(".card.invisible").css("width", (100 * scale)+"px").css("height", (height * scale)+"px").css("margin", (10 * scale)+"px");
 	var trans = ((scale - 1) * 50) + "%";
 	$(".card.real").css("transform", "translateX("+trans+") translateY("+trans+") scale("+scale+") ").css("margin", (10 * scale)+"px");
 	//$(".card.real").css("width", (100 * scale)+"px").css("height", (125 * scale)+"px");
@@ -561,7 +577,7 @@ $(document).ready(function(){
 	display: inline-block;
 	border-radius: 10px;
 	overflow: hidden;
-	transition: transform 0.1s, top 0.5s, left 0.5s, opacity 0.5s;
+	transition: transform 0.1s, top 0.5s, left 0.5s;
 }
 
 .card.invisible {
@@ -579,6 +595,13 @@ $(document).ready(function(){
 	box-shadow: 0 0 0px 3px white;
 	z-index: 9999;
 }
+
+/*.compact .card.real:hover {
+	height: 125px;
+}
+.compact .card.real:hover .name {
+	opacity: 1;
+}*/
 
 .card.rarity-4  {	background: linear-gradient(0deg,#917ab1 0%,#6c6192 100%);}
 .card.rarity-5  {	background: linear-gradient(0deg,#de9552 0%,#9a6d43 100%);}
@@ -616,6 +639,14 @@ $(document).ready(function(){
 	display: inline-block; 
 }
 
+.compact .card .name, .compact .card.invisible .name {display: none;}
+.compact .card .face, .compact .card.invisible .face {height: 100px !important}
+.compact .card, .compact .card.invisible {
+	background: none no-repeat;
+	height: 100px;
+	width: 100px;
+	margin: 0px !important;
+}
 
 
 th.weapon, th.region, th.element, th.talentbook, th.specialty, th.bossdrop, th.weekly {
@@ -664,7 +695,7 @@ tr:nth-child(even) td:nth-child(even) {
 
 </style>
 </head>
-<body>
+<body class="compact">
 <div id="sorts"></div>
 <div id="content">
 
